@@ -1,0 +1,20 @@
+.info{
+  display: flex;
+  justify-content: flex-start;
+  .info-title{
+
+  }
+  .info-name{
+    display: flex;
+    justify-content: space-between;
+    width: 840px;
+    .info-name-field{
+      width: 390px;
+    }
+  }
+
+  .info-text-field{
+    width: 100%;
+    min-width: 800px;
+  }
+}
