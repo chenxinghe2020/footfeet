@@ -9,6 +9,7 @@ import Products from "./products/Products";
 import Product from "./products/productDetail/Product";
 import {Account} from "./account/Account";
 import Cart from "./cart/Cart";
+import Payment from "./payment/Payment";
 
 
 class App extends React.Component{
@@ -28,6 +29,7 @@ class App extends React.Component{
                 <Route path={`${appConstants.productDetailRoute}/:id`} component={Product}/>
                 <Route path={appConstants.accountRoute} component={Account}/>
                 <Route path={appConstants.cartRoute} component={Cart}/>
+                <Route path={appConstants.paymentRoute} component={Payment}/>
                 <Route path="*">
                     <Redirect to={appConstants.homeRoute}/>
                 </Route>

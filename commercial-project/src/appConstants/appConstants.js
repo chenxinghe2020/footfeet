@@ -9,6 +9,7 @@ export const appConstant={
     accountSettingRoute:'/account/setting',
     accountOrderRoute:'/account/orders',
     cartRoute:'/cart',
+    paymentRoute:'/payment',
 
 
     //action
@@ -27,6 +28,7 @@ export const appConstant={
     TEMP_ADD_TO_CART:'TEMP_ADD_TO_CART',
     DELETE_FROM_CART:'DELETE_FROM_CART',
     TEMP_DELETE_FROM_CART:'TEMP_DELETE_FROM_CART',
+    GET_SHIPPING:'GET_SHIPPING',
 
 
 

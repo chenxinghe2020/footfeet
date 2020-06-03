@@ -3,16 +3,12 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import './AccountSetting.scss'
 import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import UsernameIcon from "@material-ui/icons/Person";
-import PasswordIcon from "@material-ui/icons/VpnKey";
 import Fab from "@material-ui/core/Fab";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import Divider from "@material-ui/core/Divider";
 import {useDispatch, useSelector} from "react-redux";
 import {addUserInfo, getUserInfo} from "../../actions/userInfo.action";
-import {login} from "../../actions/auth.action";
-import {checkLogin} from "../../actions/user.action";
+
 
 
 export const AccountSetting=(props)=>{
