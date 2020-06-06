@@ -8,17 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
 @Entity
-@Table(name="order_product")
-public class OrderProduct {
-	
+@Table(name="cart")
+public class Cart {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -26,32 +21,26 @@ public class OrderProduct {
 	private int userId;
 	@Column
 	private int qty;
-
-	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.DETACH)
-	private Order order;
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.DETACH)
 	private Product product;
 
-	public OrderProduct() {
+	public Cart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderProduct(int id, int userId, int qty, Order order, Product product) {
+	public Cart(int id, int userId, int qty, Product product) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.qty = qty;
-		this.order = order;
 		this.product = product;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderProduct [id=" + id + ", userId=" + userId + ", qty=" + qty + ", order=" + order + ", product="
-				+ product + "]";
+		return "Cart [id=" + id + ", userId=" + userId + ", qty=" + qty + ", product=" + product + "]";
 	}
 
 	public int getId() {
@@ -78,15 +67,6 @@ public class OrderProduct {
 		this.qty = qty;
 	}
 
-	@JsonIgnore
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
 	public Product getProduct() {
 		return product;
 	}
@@ -94,10 +74,6 @@ public class OrderProduct {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-
-	
-	
-	
 	
 	
 }

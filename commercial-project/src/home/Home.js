@@ -1,89 +1,120 @@
 import React from 'react';
 import './Home.scss';
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Fab from "@material-ui/core/Fab";
 const Home = () => {
+
+    const reduxStore= useSelector(appState => {
+        return {
+            products:appState.products
+        };
+    });
+
+
+
+
     return (
-        <div className="Home">
-            {/*<Grid container className='firstRow' >*/}
-            {/*    <Link item space={1} lg={6} md={6} sm={false} xs={false}>*/}
-            {/*        <Grid className="product-wrapper">*/}
-            {/*            <img*/}
-            {/*                className="product-image"*/}
-            {/*                alt="Magic iPhone..."*/}
-            {/*                src={require('../image/homeshoes.png')}/>*/}
-            {/*                /!*<p>new release shop now</p>*!/*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*    <Link >*/}
-            {/*        <Grid  item space={1} lg={6} md={6} sm={12} xs={12}  className="product-wrapper">*/}
-            {/*            <img*/}
-            {/*                className="product-image"*/}
-            {/*                alt="Magic iPhone..."*/}
-            {/*                src={require('../image/newRelease2.png')}/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*</Grid>*/}
-            {/*<h3>What's new. What's coming</h3>*/}
-            {/*<Grid className='secondRow' >*/}
-            {/*    <Link>*/}
-            {/*        <Grid item lg={4} className="product-wrapper">*/}
-            {/*            <img className="product-image"*/}
-            {/*                 src={require('../image/newRelease2.png')}*/}
-            {/*                 alt="new release product1"/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*    <Link>*/}
-            {/*        <Grid item lg={4} className="product-wrapper">*/}
-            {/*            <img className="product-image"*/}
-            {/*                 src={require('../image/newRelease2.png')}*/}
-            {/*                 alt="new release product1"/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*    <Link>*/}
-            {/*        <Grid item lg={4} className="product-wrapper">*/}
-            {/*            <img className="product-image"*/}
-            {/*                 src={require('../image/newRelease2.png')}*/}
-            {/*                 alt="new release product1"/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*</Grid>*/}
-            {/*<h2>What's new. What's coming</h2>*/}
-            {/*<Grid className='thirdRow' >*/}
-            {/*    <Link>*/}
-            {/*        <Grid item lg={4} className="product-wrapper">*/}
-            {/*            <img className="product-image"*/}
-            {/*                 src={require('../image/newRelease2.png')}*/}
-            {/*                 alt="new release product1"/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*    <Link>*/}
-            {/*        <Grid item lg={4} className="product-wrapper">*/}
-            {/*            <img className="product-image"*/}
-            {/*                 src={require('../image/homeshoes.png')}*/}
-            {/*                 alt="new release product1"/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*    <Link>*/}
-            {/*        <Grid item lg={4} className="product-wrapper">*/}
-            {/*            <img className="product-image"*/}
-            {/*                 src={require('../image/newRelease2.png')}*/}
-            {/*                 alt="new release product1"/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*    <Link>*/}
-            {/*        <Grid item lg={4} className="product-wrapper">*/}
-            {/*            <img className="product-image"*/}
-            {/*                 src={require('../image/homeshoes.png')}*/}
-            {/*                 alt="new release product1"/>*/}
-            {/*        </Grid>*/}
-            {/*    </Link>*/}
-            {/*</Grid>*/}
+        <Grid className="Home" container>
+            <Grid item container className='home-first' spacing={1} >
+                <Grid item lg={5} md={5} sm={5} xs={5} className="first-one">
+                    <Fab
+                        variant="extended"
+                        size="large"
+                        aria-label="AddProduct"
+                        className='first-btn'
+                    >
+                        Shop Now <ArrowForwardIosIcon style={{margin:10}}/>
+                    </Fab>
+                </Grid>
+                <Grid item lg={5} md={5} sm={5} xs={5} className="first-two">
+                    <Fab
+                        variant="extended"
+                        size="large"
+                        aria-label="AddProduct"
+                        className='first-btn'
+                    >
+                        Shop Now <ArrowForwardIosIcon style={{margin:10}}/>
+                    </Fab>
+                </Grid>
+            </Grid>
+            <h3>What's new. What's coming</h3>
+            <Grid container item lg={12} md={12} sm={12} xs={12} className='home-second'>
+                <Grid item lg={2} md={2} sm={2} xs={2} className='second-container'>
+                    <div className='second-title'>
+                        SUMMER CALL
+                    </div>
+                    <div className='second-subtitle'>
+                        Lock in summer looks with Air Max.
+                    </div>
+                    <br/>
+                    <Fab
+                        variant="extended"
+                        size="large"
+                        aria-label="AddProduct"
+                        className='second-btn'
+                    >
+                        Air Max <ArrowForwardIosIcon style={{margin:10}}/>
+                    </Fab>
+                </Grid>
+            </Grid>
+            <Grid container item className='third-title'>
+                What's new. What's coming
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <Grid container item lg={12} md={12} sm={12} xs={12} spacing={2} className='home-third'>
+                <Grid item lg={3} md={4} sm={4} xs={4} className='third-one'>
 
+                </Grid>
+                <Grid item lg={3} md={4} sm={4} xs={4} className='third-second'>
 
+                </Grid>
+                <Grid item lg={3} md={4} sm={4} xs={4} className='third-third' >
 
-        </div>
+                </Grid>
+
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <Grid container item className='third-title'>
+                What's new. What's coming
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <Grid container item lg={12} md={12} sm={12} xs={12} className='home-fourth'>
+                <Grid item lg={2} md={2} sm={2} xs={2} className='fourth-container'>
+                    <div className='fourth-title'>
+                        Jordan Force
+                    </div>
+                    <div className='fourth-subtitle'>
+                        deliver timeless style with every step
+                    </div>
+                    <br/>
+                    <Fab
+                        variant="extended"
+                        size="large"
+                        aria-label="AddProduct"
+                        className='fourth-btn'
+                    >
+                        Air Max <ArrowForwardIosIcon style={{margin:10}}/>
+                    </Fab>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                </Grid>
+            </Grid>
+
+        </Grid>
 
     );
 };

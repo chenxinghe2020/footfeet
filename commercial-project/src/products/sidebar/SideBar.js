@@ -3,7 +3,6 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Paper from "@material-ui/core/Paper";
 import React from "react";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -13,7 +12,7 @@ import './SideBar.scss'
 export const SideBar=(props)=>{
 
     return(
-        <div className='root'>
+        <div className='sideBar-main'>
             <ExpansionPanel>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -49,7 +48,7 @@ export const SideBar=(props)=>{
                 >
                     <Typography>Brand</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className='wrap'>
+                <ExpansionPanelDetails className='sideBar-wrap'>
                     <FormControlLabel
                         control={<Checkbox name="checkedA" />}
                         label="Nike"
@@ -76,7 +75,7 @@ export const SideBar=(props)=>{
                 >
                     <Typography>Size</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className='wrap'>
+                <ExpansionPanelDetails className='sideBar-wrap'>
                     <FormControlLabel
                         control={<Checkbox name="checkedA" />}
                         label="5.5"
@@ -119,7 +118,7 @@ export const SideBar=(props)=>{
                 >
                     <Typography>Color</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className='wrap'>
+                <ExpansionPanelDetails className='sideBar-wrap'>
                     <FormControlLabel
                         control={<Checkbox name="checkedA" />}
                         label="Red"
@@ -146,7 +145,7 @@ export const SideBar=(props)=>{
                 >
                     <Typography>Price</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className='wrap'>
+                <ExpansionPanelDetails className='sideBar-wrap'>
                     <FormControlLabel
                         control={<Checkbox name="checkedA" />}
                         label="0-100"

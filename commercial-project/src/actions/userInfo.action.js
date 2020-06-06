@@ -17,11 +17,11 @@ export const addUserInfo=(newUserInfo,loginState)=>{
         state:newUserInfo.state                 ? newUserInfo.state             :'',
         user:loginState.user                    ? loginState.user               :null
     }
-    console.log('***************************************************')
-    console.log(userInfo);
+    // console.log('***************************************************')
+    // console.log(userInfo);
     const addUserInfoPromise=axios.put(`http://localhost:8080/user-details`, userInfo ,{withCredentials:true});
-    console.log("this is in add user info")
-    console.log(addUserInfoPromise)
+    // console.log("this is in add user info")
+    // console.log(addUserInfoPromise)
     return {
         type:appConstant.ADD_USER_INFO,
         payload: addUserInfoPromise
@@ -31,8 +31,8 @@ export const addUserInfo=(newUserInfo,loginState)=>{
 export const getUserInfo=(id)=>{
 
     const getUserInfoPromise=axios.get(`http://localhost:8080/user-details/${id}`,{withCredentials:true});
-    console.log("this is in user info action")
-    console.log(getUserInfoPromise);
+    // console.log("this is in user info action")
+    // console.log(getUserInfoPromise);
     return {
         type:appConstant.GET_USER_INFO,
         payload:getUserInfoPromise,

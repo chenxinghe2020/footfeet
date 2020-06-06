@@ -5,6 +5,11 @@ import './CardInfo.scss'
 
 const CardInfo=(props)=>{
 
+    const handleFormControl = (event) => {
+        const newCard = {...props.card};
+        newCard[event.target.name] = event.target.value;
+        props.setCard(newCard);
+    };
 
     return(
         <form className='card-info'>
@@ -16,8 +21,8 @@ const CardInfo=(props)=>{
                                variant="outlined"
                                className='card-num'
                         // disabled={!editable}
-                        // onChange={handleFormControl}
-                        // value={userInfo.country}
+                                onChange={handleFormControl}
+                                value={props.card.cardNumber}
                     />
                 </Grid>
                 <Grid item lg={3} md={3} sm={3} xs={3}>
@@ -27,8 +32,8 @@ const CardInfo=(props)=>{
                                variant="outlined"
                                className='card-date'
                         // disabled={!editable}
-                        // onChange={handleFormControl}
-                        // value={userInfo.state}
+                                onChange={handleFormControl}
+                                value={props.card.expirationDate}
                     />
                 </Grid>
                 <Grid item lg={3} md={3} sm={3} xs={3}>
@@ -38,8 +43,8 @@ const CardInfo=(props)=>{
                                variant="outlined"
                                className='card-css'
                         // disabled={!editable}
-                        // onChange={handleFormControl}
-                        // value={userInfo.state}
+                                onChange={handleFormControl}
+                                value={props.card.securityCode}
                     />
                 </Grid>
             </Grid>

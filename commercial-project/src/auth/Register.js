@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import DialogContent from "@material-ui/core/DialogContent";
-// import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import UsernameIcon from "@material-ui/icons/Person";
 import PasswordIcon from "@material-ui/icons/VpnKey";
@@ -12,38 +11,10 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import Snackbar from "@material-ui/core/Snackbar";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
-import { login} from "../actions/auth.action";
 import {useDispatch, useSelector} from "react-redux";
 import {appConstant} from "../appConstants/appConstants";
-import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
-import EmailIcon from '@material-ui/icons/Email';
-import * as Yup from 'yup';
-import {ErrorMessage, Field, Formik} from "formik";
 import TextField from "@material-ui/core/TextField";
 import {register} from "../actions/user.action";
-import {addUserInfo} from "../actions/userInfo.action";
-
-// const registerSchema = Yup.object().shape({
-//     username: Yup.string()
-//         // .min(2, 'Username is Too Short!')
-//         // .max(20, 'Username is Too Long!')
-//         .required('Username is required'),
-//     password: Yup.number()
-//         // .min(2, 'Password is Too Short!')
-//         // .max(50, 'Password is Too Long!')
-//         .required('Password is required'),
-//     confirmPassword: Yup.number()
-//         // .min(2, 'Password is Too Short!')
-//         // .max(50, 'Password is Too Long!')
-//         .required('confirm password is required')
-//         .oneOf([Yup.ref('password')], 'Passwords must match',),
-//     phone: Yup.number()
-//         .min(0, 'Product stock has to be positive')
-//         .required('Product stock is required'),
-//     email: Yup.string()
-//         .email('Invalid email')
-//         .required('Email is required'),
-// });
 
 const Register=(props)=>{
     const dispatch = useDispatch();

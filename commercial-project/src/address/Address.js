@@ -1,7 +1,5 @@
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Fab from "@material-ui/core/Fab";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import React from "react";
 import './Address.scss'
 
@@ -13,9 +11,6 @@ const Address=(props)=>{
         newAddress[event.target.name] = event.target.value;
         props.setAddress(newAddress);
     };
-    React.useEffect(()=>{
-        console.log(props.address)
-    })
     return (
 
             <form className='info'>

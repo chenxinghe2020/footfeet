@@ -5,13 +5,8 @@ import {getProducts} from "../../actions/products.action";
 import Paper from "@material-ui/core/Paper";
 import './Product.scss'
 import Typography from "@material-ui/core/Typography";
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import {Link} from "react-router-dom";
-import {appConstant} from "../../appConstants/appConstants";
 import FormControl from "@material-ui/core/FormControl";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
@@ -98,6 +93,8 @@ class Product extends React.Component{
 
 
     render(){
+
+
         return(
             <Grid container className='main' spacing={4}>
                 <Grid item container spacing={1} lg={7} md={7} sm={6} xs={6} className='showImg'>
@@ -199,6 +196,15 @@ class Product extends React.Component{
 
             </Grid>
         )
+
+
+
+
+
+
+
+
+
     }
 }
 function mapStateToProps(appstate, ownProps) {

@@ -1,9 +1,6 @@
 import React, {useState} from "react";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -14,7 +11,6 @@ import {appConstant} from "../appConstants/appConstants";
 import Snackbar from "@material-ui/core/Snackbar";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Fab from "@material-ui/core/Fab";
-import LoginIcon from '@material-ui/icons/FilterHdr';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import './Login.scss'
@@ -48,7 +44,6 @@ const Login=(props)=>{
 
     React.useEffect(()=>{
         loginState.user&&dispatch(getUserInfo(loginState.user.id));
-        loginState.user&&console.log('get user info success in login.js')
     },[loginState.user])
 
     const handleSubmit = (event) => {
@@ -58,7 +53,10 @@ const Login=(props)=>{
             () => setOpen(true),
             () => setOpen(true)
         ));
-        dispatch(checkLogin());
+        setTimeout(()=>{
+            dispatch(checkLogin());
+        },0)
+
         props.handleClose();
     };
 

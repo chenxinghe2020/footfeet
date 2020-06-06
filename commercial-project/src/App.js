@@ -10,6 +10,7 @@ import Product from "./products/productDetail/Product";
 import {Account} from "./account/Account";
 import Cart from "./cart/Cart";
 import Payment from "./payment/Payment";
+import Admin from "./admin/Admin";
 
 
 class App extends React.Component{
@@ -30,6 +31,7 @@ class App extends React.Component{
                 <Route path={appConstants.accountRoute} component={Account}/>
                 <Route path={appConstants.cartRoute} component={Cart}/>
                 <Route path={appConstants.paymentRoute} component={Payment}/>
+                <Route path={appConstants.adminRoute} component={Admin}/>
                 <Route path="*">
                     <Redirect to={appConstants.homeRoute}/>
                 </Route>

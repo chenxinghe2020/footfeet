@@ -6,35 +6,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mercury.Foot.Feet.beans.Feedback;
-import com.mercury.Foot.Feet.beans.Order;
-import com.mercury.Foot.Feet.services.OrderService;
+import com.mercury.Foot.Feet.beans.Cart;
+import com.mercury.Foot.Feet.services.CartService;
 
 @RestController
-@RequestMapping("/orders")
-public class OrderController {
-	
+@RequestMapping("/carts")
+public class CartController {
+
 	@Autowired
-	private OrderService orderService;
+	private CartService cartService;
 	
 	@PostMapping
-	public void save(@RequestBody Order order) {
-		orderService.save(order);
+	public void save(@RequestBody Cart cart){
+		cartService.save(cart);
 	}
+	
 	
 	@GetMapping("/{id}")
-	public List<Order> getOrdersByUserId(@PathVariable int id){
-		return orderService.getByUserId(id);
+	public List<Cart> getByUserId(@PathVariable int id){
+		return  cartService.getByUserId(id);
 	}
 	
-	@GetMapping
-	public List<Order> getAll(){
-		return orderService.getAll();
+	@PutMapping("/{id}")
+	public void deleteById(@PathVariable int id) {
+		cartService.deleteById(id);
 	}
-	
-	
 }

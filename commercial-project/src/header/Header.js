@@ -3,7 +3,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {Link, NavLink} from "react-router-dom";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import SearchIcon from '@material-ui/icons/Search';
 import {appConstant as appConstants, appConstant} from "../appConstants/appConstants";
 import './Header.scss'
@@ -21,8 +20,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../actions/auth.action";
 import Register from "../auth/Register";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import IconButton from "@material-ui/core/IconButton";
+import {checkLogin} from "../actions/user.action";
 
 const tabs=[
     {label:"Trending"},
@@ -83,6 +81,7 @@ const Header=()=>{
     const loginState = useSelector(appState => {
         return {
             user: appState.user,
+            auth:appState.auth,
             msg: appState.user ?
                 appConstant.LOGIN_SUCCESS_MESSAGE:
                 appConstant.LOGIN_FAILURE_MESSAGE
@@ -101,12 +100,15 @@ const Header=()=>{
         dispatch(logout());
     }
     React.useEffect(()=>{
-        // console.log("this is a print for login state")
-        // console.log(loginState);
         if(loginState.user){
             setDialog(false);
         }
-    })
+    },[loginState.user])
+
+    React.useEffect(()=>{
+        dispatch(checkLogin());
+    },[loginState.auth])
+
 
     return (
         <div>
@@ -117,15 +119,20 @@ const Header=()=>{
                              style={{color : 'white',textDecoration: 'none'}}>
                         HELP
                     </NavLink>
-                    {loginState.user?
-                        <Link to={appConstant.accountRoute} className='linkItem' style={{color : 'white'}}>
-                            Account
-                        </Link>
+                    {loginState.user?(loginState.user.profiles[0].type==='ROLE_ADMIN'?
+                            <Link to={appConstant.adminRoute} className='linkItem' style={{color : 'white',textDecoration: 'none'}}>
+                                Account
+                            </Link>
+                            :
+                            <Link to={appConstant.accountRoute} className='linkItem' style={{color : 'white',textDecoration: 'none'}}>
+                                Account
+                            </Link>
+                        )
                         :
                         <></>
                     }
                     {loginState.user?
-                        <Button onClick={handleLogout}  className='linkItem' style={{color : 'white'}}>
+                        <Button onClick={handleLogout} component={Link} to={appConstant.homeRoute} className='linkItem' style={{color : 'white'}}>
                             Logout
                         </Button>
                         :
@@ -142,7 +149,7 @@ const Header=()=>{
                     onMouseLeave={handleMenuClose.bind(this,tab)}
                 >
                     <Grid container className='secondLine'>
-                        <Grid item lg={1} md={5} sm={11} xs={11}>
+                        <Grid item lg={1} md={1} sm={false} xs={false}>
                             <Link to={appConstants.homeRoute} style={{textDecoration: 'none'}}>
                                 <Typography variant="h6" style={{backgroundColor:'black',color:'white'}}>
                                     Foot & Feet
@@ -150,7 +157,7 @@ const Header=()=>{
                             </Link>
 
                         </Grid>
-                        <Grid item lg={7} md={5} sm={11} xs={11}>
+                        <Grid item lg={7} md={7} sm={11} xs={11}>
                             <Paper>
                                 <Tabs
                                     value={tab.value}

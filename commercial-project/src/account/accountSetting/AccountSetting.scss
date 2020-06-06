@@ -1,19 +1,19 @@
-.info{
+.accountSetting{
   display: flex;
   justify-content: flex-start;
-  .info-title{
+  .accountSetting-title{
 
   }
   .info-name{
     display: flex;
     justify-content: space-between;
     width: 840px;
-    .info-name-field{
+    .accountSetting-name-field{
       width: 390px;
     }
   }
 
-  .info-text-field{
+  .accountSetting-text-field{
     width: 100%;
     min-width: 800px;
   }

@@ -1,16 +1,17 @@
- import React from "react";
+ import React, {useEffect, useState} from "react";
  import {Grid} from "@material-ui/core";
  import Typography from "@material-ui/core/Typography";
  import './Cart.scss';
  import {useDispatch, useSelector} from "react-redux";
  import {appConstant} from "../appConstants/appConstants";
- import {getCart} from "../actions/cart.action";
+ import {addToCart, deleteFromCart, getCart} from "../actions/cart.action";
  import Divider from "@material-ui/core/Divider";
- import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
  import Fab from "@material-ui/core/Fab";
- import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
  import {Link} from "react-router-dom";
- import ListItem from "@material-ui/core/ListItem";
+ import Select from "@material-ui/core/Select";
+ import MenuItem from "@material-ui/core/MenuItem";
+ import DeleteIcon from '@material-ui/icons/Delete';
+ import IconButton from "@material-ui/core/IconButton";
 
 const Cart=()=>{
     const dispatch = useDispatch();
@@ -29,19 +30,47 @@ const Cart=()=>{
     React.useEffect(()=>{
         dispatch(getCart(loginState.user.id));
     },[])
+
+    const [cart,setCart]=useState({
+        items:[]
+    })
+
+    useEffect(()=>{
+        setCart({
+            items:loginState.cart
+        })
+    },[loginState.cart])
+
     React.useEffect(()=>{
         let subtotal=0;
-        loginState.cart&&loginState.cart.forEach((item)=>{
-            subtotal=subtotal+item.product.price;
+        loginState.cart&&cart.items.forEach((item)=>{
+            subtotal=subtotal+item.product.price*item.qty;
         })
         loginState.cart&&setPayment({
             subtotal:subtotal,
             shipping:0,
             tax:0,
         })
-    },[loginState.cart])
+    },[cart])
 
-
+    const handleQty=(event)=>{
+        let index=cart.items.findIndex(item=>{
+            return item.id===+event.target.name;
+        })
+        let newCart=cart;
+        newCart.items[index].qty=+event.target.value;
+        setCart({
+            items: newCart.items
+        });
+        dispatch(addToCart(newCart.items[index]))
+    }
+    const handleDelete=(id)=>{
+        console.log('deleting the cart item')
+        dispatch(deleteFromCart(id));
+        setCart({
+            items: loginState.cart
+        })
+    }
 
     return(
         <Grid container className='cart-main' spacing={1}>
@@ -50,30 +79,61 @@ const Cart=()=>{
                     Cart:
                 </Typography>
                 {
-                    loginState.cart&&loginState.cart.map(item=>(
-                        <Grid container className='item-wrap' key={item.product.name+item.product.size}>
+                    loginState.cart&&cart.items&&cart.items.map((item,index)=>(
+                        <Grid container className='item-wrap' key={index}>
                             <Grid item lg={2} md={3} sm={3} xs={3} >
                                 <img src={item.product.image1} alt={item.product.name}  className='item-image'/>
                             </Grid>
                             <Grid item container lg={8} md={8} sm={8} xs={8} className='item-info'>
-                                <div className='item-info-row'>
-                                    <div className='item-name'>
+                                <Grid container item className='item-info-row'>
+                                    <Grid item lg={10} md={10} sm={10} xs={10} className='item-name'>
                                         {item.product.name}
-                                    </div>
-                                    <div className='item-price'>
+                                    </Grid>
+                                    <Grid item lg={1} md={1} sm={1} xs={1} className='item-price'>
                                         ${item.product.price}
-                                    </div>
-                                </div>
-                                <div className='item-size'>
+                                    </Grid>
+                                </Grid>
+                                <Grid item lg={11} md={11} sm={11} xs={11} className='item-size'>
                                     Size: {item.product.size}
-                                </div>
-                                <div className='item-qty'>
-                                    Qty: {item.qty}
-                                </div>
-                                <div className='item-qty'>
+                                </Grid>
+                                <Grid item lg={11} md={11} sm={11} xs={11}  className='item-size'>
                                     Color: {item.product.color}
-                                </div>
-                                <div className='item-qty'></div>
+                                </Grid>
+                                <Grid item container lg={11} md={11} sm={11} xs={11}  className='item-qty'>
+                                    <Grid item lg={10} md={10} sm={10} xs={10}>
+                                        Qty:
+                                        <Select
+                                            labelId="demo-simple-select-outlined-label"
+                                            name={item.id.toString(10)}
+                                            label="Age"
+                                            onChange={handleQty}
+                                            value={item.qty}
+                                        >
+                                            <MenuItem value={1}>1</MenuItem>
+                                            <MenuItem value={2}>2</MenuItem>
+                                            <MenuItem value={3}>3</MenuItem>
+                                            <MenuItem value={4}>4</MenuItem>
+                                            <MenuItem value={5}>5</MenuItem>
+                                            <MenuItem value={6}>6</MenuItem>
+                                            <MenuItem value={7}>7</MenuItem>
+                                            <MenuItem value={8}>8</MenuItem>
+                                            <MenuItem value={9}>9</MenuItem>
+                                            <MenuItem value={10}>10</MenuItem>
+                                        </Select>
+                                    </Grid>
+                                    <Grid item lg={1} md={1} sm={1} xs={1}>
+                                        <IconButton
+                                            name={item.id.toString(10)}
+                                            aria-label="delete"
+                                            onClick={handleDelete.bind(this,item.id)}
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
+
+
+
                             </Grid>
                         </Grid>
                     ))
@@ -135,7 +195,6 @@ const Cart=()=>{
                         aria-label="Checkout"
                         type="submit"
                         className='check-out-btn'
-                        button
                         component={Link} to={appConstant.paymentRoute}
                     >
                         Check Out

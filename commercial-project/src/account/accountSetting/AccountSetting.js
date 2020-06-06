@@ -76,9 +76,9 @@ export const AccountSetting=(props)=>{
 
 
     return (
-        <Grid container className='info'>
+        <Grid container className='accountSetting'>
             <Grid item lg={12} md={12} sm={12} xs={12} >
-                <Typography variant="h3" className='info-title' >
+                <Typography variant="h3" className='accountSetting-title' >
                     Account setting
                     <Divider/>
                 </Typography>
@@ -92,7 +92,7 @@ export const AccountSetting=(props)=>{
                                    label="First Name"
                                    name='firstName'
                                    variant="outlined"
-                                   className='info-name-field'
+                                   className='accountSetting-name-field'
                                    disabled={!editable}
                                    onChange={handleFormControl}
                                    value={userInfo.firstName}
@@ -103,7 +103,7 @@ export const AccountSetting=(props)=>{
                                    label="Last Name"
                                    name='lastName'
                                    variant="outlined"
-                                   className='info-name-field'
+                                   className='accountSetting-name-field'
                                    disabled={!editable}
                                    onChange={handleFormControl}
                                    value={userInfo.lastName}
@@ -116,7 +116,7 @@ export const AccountSetting=(props)=>{
                                label="Email"
                                name='email'
                                variant="outlined"
-                               className='info-text-field'
+                               className='accountSetting-text-field'
                                disabled={!editable}
                                onChange={handleFormControl}
                                value={userInfo.email}
@@ -128,7 +128,7 @@ export const AccountSetting=(props)=>{
                                label="Phone Number"
                                variant="outlined"
                                name='phoneNumber'
-                               className='info-text-field'
+                               className='accountSetting-text-field'
                                disabled={!editable}
                                onChange={handleFormControl}
                                value={userInfo.phoneNumber}
@@ -140,7 +140,7 @@ export const AccountSetting=(props)=>{
                                label="Address"
                                name='address'
                                variant="outlined"
-                               className='info-text-field'
+                               className='accountSetting-text-field'
                                disabled={!editable}
                                onChange={handleFormControl}
                                value={userInfo.address}
@@ -153,7 +153,7 @@ export const AccountSetting=(props)=>{
                                    label="City"
                                    variant="outlined"
                                    name='city'
-                                   className='info-name-field'
+                                   className='accountSetting-name-field'
                                    disabled={!editable}
                                    onChange={handleFormControl}
                                    value={userInfo.city}
@@ -164,7 +164,7 @@ export const AccountSetting=(props)=>{
                                    label="Zip"
                                    name='zip'
                                    variant="outlined"
-                                   className='info-name-field'
+                                   className='accountSetting-name-field'
                                    disabled={!editable}
                                    onChange={handleFormControl}
                                    value={userInfo.zip}
@@ -178,7 +178,7 @@ export const AccountSetting=(props)=>{
                                    label="Country/Region"
                                    name='country'
                                    variant="outlined"
-                                   className='info-name-field'
+                                   className='accountSetting-name-field'
                                    disabled={!editable}
                                    onChange={handleFormControl}
                                    value={userInfo.country}
@@ -189,7 +189,7 @@ export const AccountSetting=(props)=>{
                                    label="State"
                                    name='state'
                                    variant="outlined"
-                                   className='info-name-field'
+                                   className='accountSetting-name-field'
                                    disabled={!editable}
                                    onChange={handleFormControl}
                                    value={userInfo.state}

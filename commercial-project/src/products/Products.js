@@ -1,38 +1,35 @@
-import React, {useState} from "react";
-import {connect, useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {connect, useDispatch, useSelector} from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import {getProducts} from "../actions/products.action";
-import './Products.scss'
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import Typography from "@material-ui/core/Typography";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { makeStyles } from '@material-ui/core/styles';
+import './Products.scss';
 import {SideBar} from "./sidebar/SideBar";
 import {Link} from "react-router-dom";
 import {appConstant} from "../appConstants/appConstants";
 
-class Products extends React.Component{
+const Products =(props)=> {
+    const dispatch=useDispatch();
+    useEffect(()=>{
+        !loginState.products&&dispatch(getProducts())
+    },[])
 
-    componentDidMount() {
-        !this.props.products&&this.props.getProducts();
-    }
+    const loginState=useSelector(appState=>{
+        return{
+            products:appState.products
+        }
+    })
 
-
-    render() {
         return(
-            <Grid container spacing={2} className="main">
+            <Grid container spacing={2} className="product-main">
                 <Grid item lg={2} md={2} sm={false} xs={false}>
-                    <Paper className="sideBar">
+                    <Paper className="product-sideBar">
                         <SideBar/>
                     </Paper>
                 </Grid>
                 <Grid item container spacing={2} lg={9} md={10} sm={12} xs={12} className="Products">
-
                     {
-                        this.props.products&&this.props.products.map(p => (
+                        loginState.products&&loginState.products.map(p => (
                             <Grid item lg={3} md={4} sm={6} xs={12} key={p.id}>
                                 <Link to={`${appConstant.productDetailRoute}/${p.id}`}>
                                     <Paper className="product-wrapper">
@@ -49,19 +46,10 @@ class Products extends React.Component{
                             </Grid>
                         ))
                     }
-
-
                 </Grid>
-
             </Grid>
         )
-    }
-
 
 }
+export default Products;
 
-
-function mapStateToProps({products}){
-    return {products};
-}
-export default connect(mapStateToProps,{getProducts})(Products);

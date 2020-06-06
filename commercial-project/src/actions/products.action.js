@@ -14,3 +14,11 @@ export const getProducts=()=>{
     }
 }
 
+export const addProduct=(newProduct)=>{
+    const addProductPromise=axios.post(`http://localhost:8080/products`,newProduct,{withCredentials:true});
+    return {
+        type:appConstant.ADD_PRODUCT,
+        payload:addProductPromise,
+    }
+}
+

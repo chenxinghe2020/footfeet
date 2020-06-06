@@ -14,6 +14,8 @@ import FormControl from "@material-ui/core/FormControl";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+import {addOrder} from "../actions/orders.action";
+import {deleteFromCart} from "../actions/cart.action";
 
 
 const Payment=(props)=>{
@@ -42,16 +44,12 @@ const Payment=(props)=>{
         setShippingValue(+event.target.value);
         console.log(event.target.value);
         // console.log(loginState.shipping)
-
             setSummary({
                 ...summary,
                 shipping: loginState.shipping[event.target.value-1].price,
                 total:summary.subtotal+summary.tax+loginState.shipping[event.target.value-1].price,
             })
-
-
     }
-
 
     const [shipping,setShipping]= React.useState({
         firstName:loginState.userInfo.firstName,
@@ -77,10 +75,11 @@ const Payment=(props)=>{
         securityCode:''
     })
 
+
     React.useEffect(()=>{
         let subtotal=0;
         loginState.cart&&loginState.cart.forEach((item)=>{
-            subtotal=subtotal+item.product.price;
+            subtotal=subtotal+item.product.price*item.qty;
         })
         loginState.cart&&setSummary({
             subtotal:subtotal,
@@ -97,6 +96,40 @@ const Payment=(props)=>{
         let day = todayTime .getDate();
         let year = todayTime .getFullYear();
         return month + "/" + day + "/" + year;
+    }
+    const handlePlaceOrder=()=>{
+        let carts=loginState.cart.map(item=>{
+            item.id=0;
+        })
+        let newOrder={
+            id:null,
+            userId:loginState.user.id,
+            date:new Date(),
+            payment:card.cardNumber,
+            subtotal:summary.subtotal,
+            tax:summary.tax,
+            shipping:summary.shipping,
+            total:summary.total,
+            purchases:carts,
+            address:{
+                id:'',
+                firstName:shipping.firstName,
+                lastName:shipping.lastName,
+                address:shipping.address,
+                state:shipping.state,
+                city:shipping.city,
+                zip:shipping.zip,
+                country:shipping.country,
+            }
+        }
+        dispatch(addOrder(newOrder));
+
+        loginState.cart.forEach(item=>{
+            dispatch(deleteFromCart(item.id));
+        })
+
+
+
     }
 
     return(
@@ -120,7 +153,7 @@ const Payment=(props)=>{
                                         let date=getFormattedDate(+item.id);
                                         let label=`${item.type}\u00A0\u00A0\u00A0\u00A0price:$${item.price}\u00A0\u00A0\u00A0\u00A0Estimated Date:${date}`
                                         return (
-                                            <FormControlLabel value={+item.id} control={<Radio />} label={label} />
+                                            <FormControlLabel value={+item.id} control={<Radio />} key={item.id} label={label} />
                                         );
                                     })
 
@@ -136,7 +169,7 @@ const Payment=(props)=>{
                     Credit Card Infomation:
                 </Typography>
                 <br/>
-                <CardInfo/>
+                <CardInfo card={card} setCard={setCard}/>
                 <br/>
                 <Typography variant="h4" style={{backgroundColor:'black',color:'white'}}>
                     Billing Address:
@@ -197,6 +230,7 @@ const Payment=(props)=>{
                         aria-label="PlaceOrder"
                         type="submit"
                         className='check-out-btn'
+                        onClick={handlePlaceOrder}
                     >
                         Place Order
                     </Fab>
