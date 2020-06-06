@@ -15,6 +15,7 @@ import Dashboard from "./dashboard/Dashboard";
 import Product from "../products/productDetail/Product";
 import EditProduct from "./editProduct/EditProduct";
 import Orders from "./orders/Orders";
+import AdminOrderDetail from "./orders/adminOrderDetail/AdminOrderDetail";
 
 const Admin=()=>{
 
@@ -58,6 +59,7 @@ const Admin=()=>{
                     <Route path={appConstants.addProductRoute} component={AddProduct}/>
                     <Route path={appConstants.dashboardRoute} component={Dashboard}/>
                     <Route path={`${appConstants.editProductRoute}/:id`} component={EditProduct}/>
+                    <Route path={`${appConstants.adminOrderDetailRoute}/:id`} component={AdminOrderDetail}/>
                     <Route path={appConstants.ordersRoute} component={Orders}/>
                     <Route path="*">
                         <Redirect to={appConstants.dashboardRoute}/>

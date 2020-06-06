@@ -8,6 +8,7 @@ export const appConstant={
     accountRoute:'/account',
     accountSettingRoute:'/account/setting',
     accountOrderRoute:'/account/orders',
+    orderDetail:'/account/orderDetail',
     cartRoute:'/cart',
     paymentRoute:'/payment',
     adminRoute:'/admin',
@@ -15,6 +16,8 @@ export const appConstant={
     addProductRoute:'/admin/addProduct',
     editProductRoute:'/admin/editProduct',
     ordersRoute:'/admin/orders',
+    adminOrderDetailRoute:'/admin/orderDetail/',
+
 
 
     //action

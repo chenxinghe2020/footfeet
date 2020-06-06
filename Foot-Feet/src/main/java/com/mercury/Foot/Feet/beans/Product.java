@@ -36,6 +36,8 @@ public class Product{
 	@Column
 	private Date releaseDate;
 	@Column
+	private String tags;
+	@Column
 	private int soldNumber;
 	@Column
 	private String image1;
@@ -50,7 +52,8 @@ public class Product{
 		// TODO Auto-generated constructor stub
 	}
 	public Product(int id, String name, double price, String description, String brand, int size, String color,
-			int stock, Date releaseDate, int soldNumber, String image1, String image2, String image3, String image4) {
+			int stock, Date releaseDate, String tags, int soldNumber, String image1, String image2, String image3,
+			String image4) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -61,6 +64,7 @@ public class Product{
 		this.color = color;
 		this.stock = stock;
 		this.releaseDate = releaseDate;
+		this.tags = tags;
 		this.soldNumber = soldNumber;
 		this.image1 = image1;
 		this.image2 = image2;
@@ -71,8 +75,8 @@ public class Product{
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", brand="
 				+ brand + ", size=" + size + ", color=" + color + ", stock=" + stock + ", releaseDate=" + releaseDate
-				+ ", soldNumber=" + soldNumber + ", image1=" + image1 + ", image2=" + image2 + ", image3=" + image3
-				+ ", image4=" + image4 + "]";
+				+ ", tags=" + tags + ", soldNumber=" + soldNumber + ", image1=" + image1 + ", image2=" + image2
+				+ ", image3=" + image3 + ", image4=" + image4 + "]";
 	}
 	public int getId() {
 		return id;
@@ -128,6 +132,12 @@ public class Product{
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
+	public String getTags() {
+		return tags;
+	}
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 	public int getSoldNumber() {
 		return soldNumber;
 	}
@@ -158,7 +168,6 @@ public class Product{
 	public void setImage4(String image4) {
 		this.image4 = image4;
 	}
-	
 	
 	
 

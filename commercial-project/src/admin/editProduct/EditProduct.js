@@ -24,6 +24,7 @@ const EditProduct=(props)=>{
         size:8,
         color:'pink',
         stock:322,
+        tags:'',
         releaseDate:new Date(),
         soldNumber:0,
         image1:'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/b45d6b90-fea2-48d6-aca5-8c49b69ec2c0/renew-run-womens-running-shoe-9CrB26.jpg',

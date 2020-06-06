@@ -16,6 +16,7 @@ const AddProduct=()=>{
         size:8,
         color:'',
         stock:0,
+        tags:'',
         releaseDate:new Date(),
         soldNumber:0,
         image1:'',

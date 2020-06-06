@@ -13,6 +13,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Product from "../products/productDetail/Product";
+import OrderDetail from "./orderHistory/orderDetail/OrderDetail";
 
 
 export const Account=(props)=>{
@@ -52,6 +54,7 @@ export const Account=(props)=>{
                 <Switch>
                     <Route path={appConstants.accountSettingRoute} component={AccountSetting}/>
                     <Route path={appConstants.accountOrderRoute} component={OrderHistory}/>
+                    <Route path={`${appConstants.orderDetail}/:id`} component={OrderDetail}/>
                     <Route path="*">
                         <Redirect to={appConstants.accountSettingRoute}/>
                     </Route>

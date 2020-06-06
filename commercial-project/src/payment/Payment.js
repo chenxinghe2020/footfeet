@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import './Payment.scss'
@@ -75,6 +75,9 @@ const Payment=(props)=>{
         securityCode:''
     })
 
+    const [cart,setCart]=useState({
+        items:loginState.cart
+    })
 
     React.useEffect(()=>{
         let subtotal=0;
@@ -97,14 +100,30 @@ const Payment=(props)=>{
         let year = todayTime .getFullYear();
         return month + "/" + day + "/" + year;
     }
+    useEffect(()=>{
+        console.log(loginState.cart)
+        setCart({
+            items: loginState.cart
+        })
+    },[loginState.cart])
+
+
     const handlePlaceOrder=()=>{
-        let carts=loginState.cart.map(item=>{
-            item.id=0;
+        let ids=[]
+        console.log(loginState.cart)
+        console.log(cart)
+        let newCart=loginState.cart;
+        let carts=newCart.map(item=>{
+            let newItem=item;
+            ids.push(item.id);
+            newItem.id=0;
+            return newItem;
         })
         let newOrder={
             id:null,
             userId:loginState.user.id,
             date:new Date(),
+            status:"unshipped",
             payment:card.cardNumber,
             subtotal:summary.subtotal,
             tax:summary.tax,
@@ -123,12 +142,10 @@ const Payment=(props)=>{
             }
         }
         dispatch(addOrder(newOrder));
-
-        loginState.cart.forEach(item=>{
-            dispatch(deleteFromCart(item.id));
+        console.log(loginState.cart);
+        ids.forEach(id=>{
+            dispatch(deleteFromCart(id));
         })
-
-
 
     }
 

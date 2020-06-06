@@ -32,6 +32,8 @@ public class Order {
 	@Column
 	private String payment;
 	@Column
+	private String status;
+	@Column
 	private double total;
 	@Column
 	private double subtotal;
@@ -51,13 +53,14 @@ public class Order {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Order(int id, int userId, Date date, String payment, double total, double subtotal, double tax,
-			double shipping, Address address, List<OrderProduct> purchases) {
+	public Order(int id, int userId, Date date, String payment, String status, double total, double subtotal,
+			double tax, double shipping, Address address, List<OrderProduct> purchases) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.date = date;
 		this.payment = payment;
+		this.status = status;
 		this.total = total;
 		this.subtotal = subtotal;
 		this.tax = tax;
@@ -68,9 +71,9 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", userId=" + userId + ", date=" + date + ", payment=" + payment + ", total=" + total
-				+ ", subtotal=" + subtotal + ", tax=" + tax + ", shipping=" + shipping + ", address=" + address
-				+ ", purchases=" + purchases + "]";
+		return "Order [id=" + id + ", userId=" + userId + ", date=" + date + ", payment=" + payment + ", status="
+				+ status + ", total=" + total + ", subtotal=" + subtotal + ", tax=" + tax + ", shipping=" + shipping
+				+ ", address=" + address + ", purchases=" + purchases + "]";
 	}
 
 	public int getId() {
@@ -103,6 +106,14 @@ public class Order {
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public double getTotal() {
@@ -152,6 +163,9 @@ public class Order {
 	public void setPurchases(List<OrderProduct> purchases) {
 		this.purchases = purchases;
 	}
+
+	
+	
 
 	
 
