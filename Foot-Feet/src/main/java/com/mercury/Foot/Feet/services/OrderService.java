@@ -37,6 +37,7 @@ public class OrderService {
 			purchases.forEach((orderProduct) -> {
 				// enrich the product object
 				Product product = (Product) productDao.findById(orderProduct.getProduct().getId()).get();
+				product.setSoldNumber(product.getSoldNumber()+orderProduct.getQty());
 				orderProduct.setProduct(product);
 				orderProduct.setOrder(order);
 				

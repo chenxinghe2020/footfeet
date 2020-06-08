@@ -48,10 +48,11 @@
       font-family: cursive;
     }
     .showTag{
-      height: 40px;
+      display: flex;
+      justifyContent: center;
+      flexWrap: wrap;
       border: 1px solid black;
       border-radius: 10px;
-      padding:30px;
     }
     .addTag{
       display: flex;

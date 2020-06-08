@@ -24,7 +24,8 @@ const Cart=()=>{
     const loginState = useSelector(appState => {
         return {
             user: appState.user,
-            cart: appState.cart
+            cart: appState.cart,
+            tempCart:appState.tempCart,
         };
     });
     React.useEffect(()=>{

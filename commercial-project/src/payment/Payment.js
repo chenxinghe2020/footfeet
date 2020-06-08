@@ -16,9 +16,13 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import {addOrder} from "../actions/orders.action";
 import {deleteFromCart} from "../actions/cart.action";
+import { useHistory } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {appConstant} from "../appConstants/appConstants";
 
 
 const Payment=(props)=>{
+    const history=useHistory();
     const dispatch = useDispatch();
     const loginState = useSelector(appState => {
         return {
@@ -146,7 +150,7 @@ const Payment=(props)=>{
         ids.forEach(id=>{
             dispatch(deleteFromCart(id));
         })
-
+        history.push(`${appConstant.summaryRoute}`)
     }
 
     return(

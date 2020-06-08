@@ -7,6 +7,7 @@ import {cartReducer} from "./cart.reducer";
 import {shippingReducer} from "./shipping.reducer";
 import {ordersReducer} from "./orders.reducer";
 import {filterReducer} from "./filter.reducer";
+import {tempCartReducer} from "./tempCart.reducer";
 
 export const rootReducers=combineReducers({
     products:productsReducer,
@@ -14,6 +15,7 @@ export const rootReducers=combineReducers({
     user: userReducer,
     userInfo:userInfoReducer,
     cart:cartReducer,
+    tempCart:tempCartReducer,
     shipping:shippingReducer,
     orders:ordersReducer,
     filter:filterReducer,

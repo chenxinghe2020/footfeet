@@ -12,6 +12,7 @@ import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import {addToCart, getCart} from "../../actions/cart.action";
+import {addToTempCart, getTempCart} from "../../actions/tempCart.action";
 class Product extends React.Component{
     state={
         currentProduct:this.props.product,
@@ -77,18 +78,32 @@ class Product extends React.Component{
     }
 
     handleAddToCart=()=>{
-        console.log(this.props.user);
-        console.log(this.state.currentProduct);
-        const cartItem={
+        // console.log(this.props.user);
+        // console.log(this.state.currentProduct);
+
+        if(this.props.user){
+            const cartItem={
                 id:'',
                 userId:this.props.user.id,
                 qty:1,
                 status:'unpaid',
                 product:this.state.currentProduct,
                 order:'',
+            }
+            this.props.addToCart(cartItem);
+            this.props.getCart(this.props.user.id);
+        }else{
+            const cartItem={
+                id:'',
+                userId:' ',
+                qty:1,
+                status:'unpaid',
+                product:this.state.currentProduct,
+                order:'',
+            }
+            this.props.addToTempCart(cartItem);
         }
-        this.props.addToCart(cartItem);
-        this.props.getCart(this.props.user.id);
+
     }
 
 
@@ -214,7 +229,7 @@ function mapStateToProps(appstate, ownProps) {
     const user=appstate.user;
     return {id,product,products,user};
 }
-export default connect(mapStateToProps, {getProducts,addToCart,getCart})(Product);
+export default connect(mapStateToProps, {getProducts,addToCart,getCart,addToTempCart,getTempCart})(Product);
 
 
 

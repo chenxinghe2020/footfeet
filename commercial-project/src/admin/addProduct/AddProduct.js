@@ -6,7 +6,6 @@ import SendIcon from '@material-ui/icons/Send';
 import {addProduct} from "../../actions/products.action";
 
 const AddProduct=()=>{
-    const [editable,setEditable] =useState(true)
     const [product,setProduct]=React.useState({
         id:'',
         name:'',
@@ -16,7 +15,7 @@ const AddProduct=()=>{
         size:8,
         color:'',
         stock:0,
-        tags:'',
+        tags:'man women running nike adidas',
         releaseDate:new Date(),
         soldNumber:0,
         image1:'',
@@ -27,7 +26,11 @@ const AddProduct=()=>{
 
     const handleSubmit=()=>{
         console.log(product)
-        addProduct(product);
+        let newProduct= {...product,
+        tags:product.tags+' '+product.name+' '+product.size+' '+product.color+' '+product.brand+' ',
+        };
+
+        addProduct(newProduct);
     }
     return(
         <div>

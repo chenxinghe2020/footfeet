@@ -21,6 +21,7 @@ import {logout} from "../actions/auth.action";
 import Register from "../auth/Register";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {checkLogin} from "../actions/user.action";
+import TextField from "@material-ui/core/TextField";
 
 const tabs=[
     {label:"Trending"},
@@ -44,6 +45,10 @@ const brands=[
     {name:'New Balance'},{name:'Jordan'},
 ]
 const Header=()=>{
+    const [search,setSearch]=useState('');
+    const handleSearchChange=(event)=>{
+        setSearch(event.target.value)
+    }
     const [register,setRegister]=React.useState(false);
     const [dialog, setDialog] = React.useState(false);
     const dispatch = useDispatch();
@@ -108,7 +113,6 @@ const Header=()=>{
     React.useEffect(()=>{
         dispatch(checkLogin());
     },[loginState.auth])
-
 
     return (
         <div>
@@ -183,7 +187,7 @@ const Header=()=>{
                                             {tab.value<1?
                                                 tabFeature.map((item, index) => (
                                                 <MenuItem key={index}>
-                                                    <Link to={appConstants.productsRoute} key={tab.label} style={{textDecoration: 'none',color:'black'}}>
+                                                    <Link to={`${appConstant.productsRoute}/${item.name.toLowerCase()}`} key={tab.label} style={{textDecoration: 'none',color:'black'}}>
                                                         {item.name}
                                                     </Link>
                                                 </MenuItem>
@@ -191,7 +195,7 @@ const Header=()=>{
                                             :(tab.value<4?
                                                 tabContent.map((item, index) => (
                                                     <MenuItem key={index}>
-                                                        <Link to={appConstants.productsRoute} key={tab.label} style={{textDecoration: 'none',color:'black'}}>
+                                                        <Link to={`${appConstant.productsRoute}/${item.name.toLowerCase()} ${tabs[tab.value].label.toLowerCase()}`} key={tab.label} style={{textDecoration: 'none',color:'black'}}>
                                                             {item.name}
                                                         </Link>
                                                     </MenuItem>
@@ -199,7 +203,7 @@ const Header=()=>{
                                                 :
                                                 brands.map((item, index) => (
                                                     <MenuItem key={index}>
-                                                        <Link to={appConstants.productsRoute} key={tab.label} style={{textDecoration: 'none',color:'black'}}>
+                                                        <Link to={`${appConstant.productsRoute}/${item.name.toLowerCase()}`} key={tab.label} style={{textDecoration: 'none',color:'black'}}>
                                                             {item.name}
                                                         </Link>
                                                     </MenuItem>
@@ -212,13 +216,23 @@ const Header=()=>{
                                 </Popper>
                             </Paper>
                         </Grid>
-                        <Grid item lg={2} md={5} sm={11} xs={11}>
+                        <Grid item lg={2} md={2} sm={2} xs={2}>
                             <InputAdornment>
-                                <input type="text" placeholder='search' className='margin-x'/>
-                                <NavLink to={appConstant.cartRoute}  className='margin-x'>
+                                {/*<input type="text" placeholder='search' className='margin-x'/>*/}
+                                <TextField id="outlined-basic"
+                                           name='search'
+                                           variant="outlined"
+                                           className='header-search-input'
+                                           style={{backgroundColor:'white'}}
+                                           value={search}
+                                           size="small"
+                                           onChange={handleSearchChange}
+                                           // value={props.product.image3}
+                                />
+                                <NavLink to={`${appConstant.productsRoute}/${search}`}  className='header-btn-margin'>
                                     <SearchIcon style={{color : 'white'}}/>
                                 </NavLink>
-                                <NavLink to={appConstant.cartRoute}  className='margin-x' >
+                                <NavLink to={appConstant.cartRoute}  className='header-btn-margin' >
                                     <ShoppingCartIcon style={{color : 'white'}}/>
                                 </NavLink>
                             </InputAdornment>

@@ -13,15 +13,15 @@ export const addToFilter=(newFilter)=>{
 export const getFilter=()=>{
 
     return {
-        type:appConstant.ADD_TO_FILTER,
+        type:appConstant.GET_FILTER,
         payload: null
     }
 }
 
-export const deleteFilter=(item)=>{
+export const deleteFilter=(oldItem)=>{
      return{
          type:appConstant.DELETE_ONE_FILTER,
-         payload:item
+         payload:oldItem
      }
 }
 

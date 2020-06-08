@@ -23,7 +23,7 @@ public class Product{
 	private String name;
 	@Column
 	private double price;
-	@Column
+	@Column(length=3000)
 	private String description;
 	@Column
 	private String brand;
@@ -35,7 +35,7 @@ public class Product{
 	private int stock;
 	@Column
 	private Date releaseDate;
-	@Column
+	@Column(length=3000)
 	private String tags;
 	@Column
 	private int soldNumber;

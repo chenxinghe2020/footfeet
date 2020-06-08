@@ -11,6 +11,7 @@ import {Account} from "./account/Account";
 import Cart from "./cart/Cart";
 import Payment from "./payment/Payment";
 import Admin from "./admin/Admin";
+import Summary from "./summary/Summary";
 
 
 class App extends React.Component{
@@ -26,12 +27,14 @@ class App extends React.Component{
             <Switch>
                 <Route path={appConstants.homeRoute} component={Home}/>
                 <Route path={appConstants.loginRoute} component={Login}/>
+                <Route path={`${appConstants.productsRoute}/:search`} component={Products}/>
                 <Route path={appConstants.productsRoute} component={Products}/>
                 <Route path={`${appConstants.productDetailRoute}/:id`} component={Product}/>
                 <Route path={appConstants.accountRoute} component={Account}/>
                 <Route path={appConstants.cartRoute} component={Cart}/>
                 <Route path={appConstants.paymentRoute} component={Payment}/>
                 <Route path={appConstants.adminRoute} component={Admin}/>
+                <Route path={appConstants.summaryRoute} component={Summary}/>
                 <Route path="*">
                     <Redirect to={appConstants.homeRoute}/>
                 </Route>

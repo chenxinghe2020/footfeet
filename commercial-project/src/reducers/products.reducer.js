@@ -4,8 +4,8 @@ import {appConstant} from "../appConstants/appConstants";
 export const productsReducer=(state=null, action)=>{
     switch (action.type) {
         case appConstant.GET_PRODUCTS:
-            console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-            console.log(action.payload.data)
+            // console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+            // console.log(action.payload.data)
             return action.payload.data;
         case appConstant.GET_PRODUCT:
             return action.payload.data;

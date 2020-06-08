@@ -17,6 +17,7 @@ export const appConstant={
     editProductRoute:'/admin/editProduct',
     ordersRoute:'/admin/orders',
     adminOrderDetailRoute:'/admin/orderDetail/',
+    summaryRoute:'/summary',
 
 
 
@@ -34,10 +35,11 @@ export const appConstant={
     GET_USER_ORDERS:'GET_USER_ORDERS',
     ADD_ORDER:'ADD_ORDER',
     GET_CART:'GET_CART',
+    GET_TEMP_CART:'GET_TEMP_CART',
     ADD_TO_CART:'ADD_TO_CART',
-    TEMP_ADD_TO_CART:'TEMP_ADD_TO_CART',
+    ADD_TO_TEMP_CART:'ADD_TO_TEMP_CART',
     DELETE_FROM_CART:'DELETE_FROM_CART',
-    TEMP_DELETE_FROM_CART:'TEMP_DELETE_FROM_CART',
+    DELETE_FROM_TEMP_CART:'DELETE_FROM_TEMP_CART',
     GET_SHIPPING:'GET_SHIPPING',
     ADD_TO_FILTER:'ADD_TO_FILTER',
     GET_FILTER:'GET_FILTER',

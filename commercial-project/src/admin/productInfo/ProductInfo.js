@@ -1,10 +1,12 @@
 import Grid from "@material-ui/core/Grid";
-import React from "react";
+import React, {useState} from "react";
 import Paper from "@material-ui/core/Paper";
 import './ProductInfo.scss'
 import TextField from "@material-ui/core/TextField";
 import SendIcon from "@material-ui/icons/Send";
 import Fab from "@material-ui/core/Fab";
+import Chip from "@material-ui/core/Chip";
+import DoneIcon from '@material-ui/icons/Done';
 
 const ProductInfo=(props)=>{
 
@@ -13,6 +15,35 @@ const ProductInfo=(props)=>{
         newProduct[event.target.name] = event.target.value;
         props.setProduct(newProduct);
     };
+
+
+    const handleDelete=(item)=>{
+        let chips=props.product.tags.split(' ');
+        let index=chips.findIndex(chip=>{
+            return chip===item;
+        })
+        chips.splice(index,1);
+        let newTags=chips.join(" ");
+        let newProduct={
+            ...props.product,
+            tags:newTags
+        }
+        props.setProduct(newProduct);
+    }
+
+    const [tagInput,setTagInput]=useState('Nike');
+
+    const handleChipChange=(event)=>{
+        setTagInput(event.target.value);
+    }
+    const handleAddChip=(event)=>{
+        let newTags=props.product.tags+' '+tagInput;
+        let newProduct={
+            ...props.product,
+            tags:newTags
+        }
+        props.setProduct(newProduct);
+    }
 
     return(
         <Grid container className='product' spacing={2}>
@@ -201,8 +232,19 @@ const ProductInfo=(props)=>{
                                value={props.product.description}
                     />
                 </Grid>
-                <Grid item lg={12} md={12} sm={12} xs={12} className='showTag'>
-
+                <Grid item spacing={2} lg={12} md={12} sm={12} xs={12} className='showTag'>
+                    {
+                        props.product.tags.split(' ').map(chip=>(
+                            <Chip
+                                label={chip}
+                                name={chip}
+                                clickable
+                                disabled={!props.editable}
+                                color="primary"
+                                onDelete={handleDelete.bind(this,chip)}
+                            />
+                        ))
+                    }
                 </Grid>
                 <Grid item container lg={12} md={12} sm={12} xs={12} className='addTag'>
                     <Grid item lg={9} md={10} sm={10} xs={10}>
@@ -212,9 +254,9 @@ const ProductInfo=(props)=>{
                             variant="outlined"
                             className='input'
                             id="outlined-multiline-static"
-                            // disabled={!props.editable}
-                            // onChange={handleFormControl}
-                            // value={props.product.description}
+                            disabled={!props.editable}
+                            onChange={handleChipChange}
+                            value={tagInput}
                         />
                     </Grid>
                     <Grid item lg={2} md={2} sm={2} xs={2}>
@@ -222,8 +264,8 @@ const ProductInfo=(props)=>{
                             variant="extended"
                             size="large"
                             aria-label="AddProduct"
-                            // className='add-btn'
-                            // onClick={handleSubmit}
+                            disabled={!props.editable}
+                            onClick={handleAddChip}
                             style={{backgroundColor:"black",color:"white"}}
                         >
                             Add Tags <SendIcon style={{margin:10}}/>
