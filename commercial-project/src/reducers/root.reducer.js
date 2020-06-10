@@ -8,6 +8,7 @@ import {shippingReducer} from "./shipping.reducer";
 import {ordersReducer} from "./orders.reducer";
 import {filterReducer} from "./filter.reducer";
 import {tempCartReducer} from "./tempCart.reducer";
+import {reviewsReducer} from "./reviews.reducer";
 
 export const rootReducers=combineReducers({
     products:productsReducer,
@@ -19,5 +20,6 @@ export const rootReducers=combineReducers({
     shipping:shippingReducer,
     orders:ordersReducer,
     filter:filterReducer,
+    reviews:reviewsReducer,
 
 })

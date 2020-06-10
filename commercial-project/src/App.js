@@ -12,6 +12,7 @@ import Cart from "./cart/Cart";
 import Payment from "./payment/Payment";
 import Admin from "./admin/Admin";
 import Summary from "./summary/Summary";
+import TempCart from "./cart/TempCart";
 
 
 class App extends React.Component{
@@ -32,6 +33,7 @@ class App extends React.Component{
                 <Route path={`${appConstants.productDetailRoute}/:id`} component={Product}/>
                 <Route path={appConstants.accountRoute} component={Account}/>
                 <Route path={appConstants.cartRoute} component={Cart}/>
+                {/*<Route path={appConstants.tempCartRoute} component={TempCart}/>*/}
                 <Route path={appConstants.paymentRoute} component={Payment}/>
                 <Route path={appConstants.adminRoute} component={Admin}/>
                 <Route path={appConstants.summaryRoute} component={Summary}/>

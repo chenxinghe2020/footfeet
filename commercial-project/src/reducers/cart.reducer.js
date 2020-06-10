@@ -7,6 +7,8 @@ export const cartReducer = (state = null, action) => {
             return state;
         case appConstant.GET_CART:
             return action.payload.data;
+        case appConstant.UPDATE_CART:
+            return state;
         case appConstant.DELETE_FROM_CART:
             let index=state.findIndex(item=>{
                 return item.id===action.payload;

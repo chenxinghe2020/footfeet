@@ -25,7 +25,7 @@ export const Account=(props)=>{
 
     return (
         <Grid container className='main'>
-           <Grid item container lg={2} md={3} sm={3} xs={false} className='sideBar'>
+           <Grid item container lg={2} md={2} sm={2} xs={2} className='sideBar'>
                <List
                    component="nav"
                    aria-labelledby="nested-list-subheader"
@@ -50,7 +50,7 @@ export const Account=(props)=>{
                    </ListItem>
                </List>
            </Grid>
-            <Grid item lg={7} md={6} sm={7} xs={12} className='infoBlock'>
+            <Grid item container lg={8} md={8} sm={8} xs={8} className='infoBlock'>
                 <Switch>
                     <Route path={appConstants.accountSettingRoute} component={AccountSetting}/>
                     <Route path={appConstants.accountOrderRoute} component={OrderHistory}/>

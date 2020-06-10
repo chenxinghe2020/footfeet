@@ -22,6 +22,7 @@ import Register from "../auth/Register";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {checkLogin} from "../actions/user.action";
 import TextField from "@material-ui/core/TextField";
+import ForgotPassword from "../auth/ForgotPassword";
 
 const tabs=[
     {label:"Trending"},
@@ -51,6 +52,7 @@ const Header=()=>{
     }
     const [register,setRegister]=React.useState(false);
     const [dialog, setDialog] = React.useState(false);
+    const [forgotPassword,setForgotPassword]=useState(false)
     const dispatch = useDispatch();
     const handleClickOpen = () => {
         setDialog(true);
@@ -59,6 +61,14 @@ const Header=()=>{
     const handleClose = () => {
         setDialog(false);
     };
+
+    const handleForgotOpen=()=>{
+        setForgotPassword(true);
+    }
+
+    const handleForgotClose=()=>{
+        setForgotPassword(false);
+    }
 
     const handleRegisterOpen=()=>{
         setRegister(true);
@@ -145,8 +155,12 @@ const Header=()=>{
                         </Button>
                     }
 
-                    <Login open={dialog} handleClose={handleClose} handleRegisterOpen={handleRegisterOpen} />
+                    <Login open={dialog} handleClose={handleClose}
+                           handleRegisterOpen={handleRegisterOpen}
+                           handleForgotOpen={handleForgotOpen}
+                    />
                     <Register open={register} handleClose={handleRegisterClose}/>
+                    <ForgotPassword open={forgotPassword} handleClose={handleForgotClose}/>
                 </div>
                 <Toolbar
                     // className={classes.toolbar}
@@ -232,9 +246,21 @@ const Header=()=>{
                                 <NavLink to={`${appConstant.productsRoute}/${search}`}  className='header-btn-margin'>
                                     <SearchIcon style={{color : 'white'}}/>
                                 </NavLink>
-                                <NavLink to={appConstant.cartRoute}  className='header-btn-margin' >
-                                    <ShoppingCartIcon style={{color : 'white'}}/>
-                                </NavLink>
+                                {
+                                    loginState.user?loginState.user.profiles[0].type==='ROLE_ADMIN'?
+                                        ''
+                                        :
+                                        <NavLink to={appConstant.cartRoute}  className='header-btn-margin' >
+                                            <ShoppingCartIcon style={{color : 'white'}}/>
+                                        </NavLink>
+                                        :
+                                        <NavLink to={appConstant.cartRoute}  className='header-btn-margin' >
+                                            <ShoppingCartIcon style={{color : 'white'}}/>
+                                        </NavLink>
+
+                                }
+
+
                             </InputAdornment>
                         </Grid>
                     </Grid>

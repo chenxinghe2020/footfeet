@@ -8,6 +8,12 @@ export const addToTempCart=(newOrderProduct)=>{
         payload: newOrderProduct
     }
 }
+export const changeTempItem=(newState)=>{
+    return{
+        type:appConstant.CHANGE_TEMP_ITEM,
+        payload:newState
+    }
+}
 
 export const deleteFromTempCart=(id)=>{
     return {

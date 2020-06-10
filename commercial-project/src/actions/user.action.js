@@ -10,6 +10,22 @@ export const register=(newUser)=>{
     }
 }
 
+export const forgotPassword=(emailArr)=>{
+    const forgotPassPromise=axios.post(`http://localhost:8080/sendMail`, emailArr ,{withCredentials:true});
+    return {
+        type:appConstant.FORGOT_PASSWORD,
+        payload: forgotPassPromise
+    }
+}
+
+export const changePassword=(newUser)=>{
+    const changePasswordPromise=axios.put(`http://localhost:8080/users`, newUser ,{withCredentials:true});
+    return {
+        type:appConstant.CHANGE_PASSWORD,
+        payload: changePasswordPromise
+    }
+}
+
 
 
 export const checkLogin = () => {

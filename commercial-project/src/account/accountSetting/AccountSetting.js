@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import './AccountSetting.scss'
@@ -8,6 +8,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import Divider from "@material-ui/core/Divider";
 import {useDispatch, useSelector} from "react-redux";
 import {addUserInfo, getUserInfo} from "../../actions/userInfo.action";
+import {changePassword, checkLogin} from "../../actions/user.action";
 
 
 
@@ -22,7 +23,7 @@ export const AccountSetting=(props)=>{
     });
 
     const [editable,setEditable]=React.useState(false);
-
+    const [pass,setPass]=useState(false);
 
 
     const [userInfo,setUserInfo]=React.useState({
@@ -37,18 +38,13 @@ export const AccountSetting=(props)=>{
         country:'',
     })
 
-    // const [userInfo,setUserInfo]=React.useState({
-    //     firstName:loginState.userInfo.firstName,
-    //     lastName:loginState.userInfo.lastName,
-    //     phoneNumber:loginState.userInfo.phoneNumber,
-    //     email:loginState.userInfo.email,
-    //     address:loginState.userInfo.address,
-    //     city:loginState.userInfo.city,
-    //     zip:loginState.userInfo.zip,
-    //     state:loginState.userInfo.state,
-    //     country:loginState.userInfo.country,
-    //     user:loginState.user,
-    // })
+    const [user,setUser]=useState({
+        id:loginState.user.id,
+        username:loginState.user.username,
+        password:"******",
+        email:loginState.user.email,
+    })
+
 
     React.useEffect(()=>{
         console.log("this is  in account setting.js use effect")
@@ -68,6 +64,23 @@ export const AccountSetting=(props)=>{
         setEditable(true)
     }
 
+    const handlePassOpen=()=>{
+        setPass(true);
+    }
+
+    const handlePassSubmit=()=>{
+        setPass(false);
+        dispatch(changePassword(user));
+        dispatch(checkLogin())
+    }
+
+    const handlePassControl=(event)=>{
+        setUser({
+            ...user,
+            password: event.target.value,
+        })
+    }
+
     const handleFormControl = (event) => {
         const newUserInfo = {...userInfo};
         newUserInfo[event.target.name] = event.target.value;
@@ -76,7 +89,7 @@ export const AccountSetting=(props)=>{
 
 
     return (
-        <Grid container className='accountSetting'>
+        <Grid container item lg={12} md={12} sm={12} xs={12} className='accountSetting'>
             <Grid item lg={12} md={12} sm={12} xs={12} >
                 <Typography variant="h3" className='accountSetting-title' >
                     Account setting
@@ -84,166 +97,207 @@ export const AccountSetting=(props)=>{
                 </Typography>
                 <br/>
             </Grid>
-
-            <form>
-                <Grid item container spacing={1} lg={10} md={10} sm={10} xs={10} className='info-name'>
-                    <Grid item lg={5} md={6} sm={6} xs={6}>
-                        <TextField id="outlined-basic"
-                                   label="First Name"
-                                   name='firstName'
-                                   variant="outlined"
-                                   className='accountSetting-name-field'
-                                   disabled={!editable}
-                                   onChange={handleFormControl}
-                                   value={userInfo.firstName}
-                        />
-                    </Grid>
-                    <Grid item lg={5} md={6} sm={6} xs={6}>
-                        <TextField id="outlined-basic"
-                                   label="Last Name"
-                                   name='lastName'
-                                   variant="outlined"
-                                   className='accountSetting-name-field'
-                                   disabled={!editable}
-                                   onChange={handleFormControl}
-                                   value={userInfo.lastName}
-                        />
-                    </Grid>
+            <Grid item container spacing={1} lg={8} md={8} sm={8} xs={8} className='accountSetting-first'>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    Username:  {user.username}
+                    <br/>
                 </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    Email:  {user.email}
+                    <br/>
+                </Grid>
+            </Grid>
+            <Grid item container lg={8} md={8} sm={8} xs={8} className='accountSetting-second'>
                 <br/>
                 <Grid item lg={8} md={8} sm={8} xs={8}>
                     <TextField id="outlined-basic"
-                               label="Email"
-                               name='email'
+                               label="Password"
+                               name='password'
                                variant="outlined"
-                               className='accountSetting-text-field'
-                               disabled={!editable}
-                               onChange={handleFormControl}
-                               value={userInfo.email}
+                               className='field'
+                               disabled={!pass}
+                               onChange={handlePassControl}
+                               value={user.password}
                     />
                 </Grid>
-                <br/>
-                <Grid item lg={8} md={8} sm={8} xs={8}>
-                    <TextField id="outlined-basic"
-                               label="Phone Number"
-                               variant="outlined"
-                               name='phoneNumber'
-                               className='accountSetting-text-field'
-                               disabled={!editable}
-                               onChange={handleFormControl}
-                               value={userInfo.phoneNumber}
-                    />
-                </Grid>
-                <br/>
-                <Grid item lg={8} md={8} sm={8} xs={8}>
-                    <TextField id="outlined-basic"
-                               label="Address"
-                               name='address'
-                               variant="outlined"
-                               className='accountSetting-text-field'
-                               disabled={!editable}
-                               onChange={handleFormControl}
-                               value={userInfo.address}
-                    />
-                </Grid>
-                <br/>
-                <Grid item container spacing={1} lg={10} md={10} sm={10} xs={10} className='info-name'>
-                    <Grid item lg={5} md={6} sm={6} xs={6}>
-                        <TextField id="outlined-basic"
-                                   label="City"
-                                   variant="outlined"
-                                   name='city'
-                                   className='accountSetting-name-field'
-                                   disabled={!editable}
-                                   onChange={handleFormControl}
-                                   value={userInfo.city}
-                        />
-                    </Grid>
-                    <Grid item lg={5} md={6} sm={6} xs={6}>
-                        <TextField id="outlined-basic"
-                                   label="Zip"
-                                   name='zip'
-                                   variant="outlined"
-                                   className='accountSetting-name-field'
-                                   disabled={!editable}
-                                   onChange={handleFormControl}
-                                   value={userInfo.zip}
-                        />
-                    </Grid>
-                </Grid>
-                <br/>
-                <Grid item container spacing={1} lg={10} md={10} sm={10} xs={10} className='info-name'>
-                    <Grid item lg={5} md={6} sm={6} xs={6}>
-                        <TextField id="outlined-basic"
-                                   label="Country/Region"
-                                   name='country'
-                                   variant="outlined"
-                                   className='accountSetting-name-field'
-                                   disabled={!editable}
-                                   onChange={handleFormControl}
-                                   value={userInfo.country}
-                        />
-                    </Grid>
-                    <Grid item lg={5} md={6} sm={6} xs={6}>
-                        <TextField id="outlined-basic"
-                                   label="State"
-                                   name='state'
-                                   variant="outlined"
-                                   className='accountSetting-name-field'
-                                   disabled={!editable}
-                                   onChange={handleFormControl}
-                                   value={userInfo.state}
-                        />
-                    </Grid>
-                </Grid>
-                <br/>
-                <br/>
-                <br/>
-                <Grid container>
-                    <Grid item lg={5} md={6} sm={6} xs={6}>
-                        {
-                            editable ?
-                                <Fab
-                                    variant="extended"
-                                    size="medium"
-                                    color="secondary"
-                                    aria-label="Save"
-                                    onClick={handleSubmit}
-                                    style={{backgroundColor:'black',color:'white'}}
-                                >
-                                    Save
-                                    <ArrowForwardIcon />
-                                </Fab>
+                <Grid item lg={4} md={4} sm={4} xs={4} className='btn'>
+                    {
+                        pass?
+                        <Fab
+                            variant="extended"
+                            size="medium"
+                            color="secondary"
+                            aria-label="Save"
+                            onClick={handlePassSubmit}
+                            className='btn-btn'
+                        >
+                            Save Password
+                            <ArrowForwardIcon />
+                        </Fab>
                             :
-                                <Fab
-                                    variant="extended"
-                                    size="medium"
-                                    color="secondary"
-                                    aria-label="Signup"
-                                    onClick={handleEditableOpen}
-                                    style={{backgroundColor:'black',color:'white'}}
-                                >
-                                    Edit
-                                    <ArrowForwardIcon />
-                                </Fab>
-                        }
+                        <Fab
+                            variant="extended"
+                            size="medium"
+                            color="secondary"
+                            aria-label="Save"
+                            onClick={handlePassOpen}
+                            className='btn-btn'
+                        >
+                            Change Password
+                            <ArrowForwardIcon />
+                        </Fab>
+                    }
 
-                    </Grid>
-                    {/*<Grid item lg={5} md={6} sm={6} xs={6} className='center'>*/}
-                    {/*    <Fab*/}
-                    {/*        variant="extended"*/}
-                    {/*        size="medium"*/}
-                    {/*        color="secondary"*/}
-                    {/*        aria-label="Login"*/}
-                    {/*        type="submit"*/}
-                    {/*        // disabled={!user.username || !user.password}*/}
-                    {/*    >*/}
-                    {/*        Save*/}
-                    {/*        <ArrowForwardIcon />*/}
-                    {/*    </Fab>*/}
-                    {/*</Grid>*/}
                 </Grid>
-            </form>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <Grid item container spacing={1} lg={8} md={8} sm={8} xs={8} className='accountSetting-third'>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <TextField id="outlined-basic"
+                               label="First Name"
+                               name='firstName'
+                               variant="outlined"
+                               className='field'
+                               disabled={!editable}
+                               onChange={handleFormControl}
+                               value={userInfo.firstName}
+                    />
+                </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <TextField id="outlined-basic"
+                               label="Last Name"
+                               name='lastName'
+                               variant="outlined"
+                               className='field'
+                               disabled={!editable}
+                               onChange={handleFormControl}
+                               value={userInfo.lastName}
+                    />
+                </Grid>
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <Grid item lg={8} md={8} sm={8} xs={8} className='accountSetting-third'>
+                <TextField id="outlined-basic"
+                           label="Phone Number"
+                           variant="outlined"
+                           name='phoneNumber'
+                           className='field'
+                           disabled={!editable}
+                           onChange={handleFormControl}
+                           value={userInfo.phoneNumber}
+                />
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <Grid item lg={8} md={8} sm={8} xs={8} className='accountSetting-third'>
+                <TextField id="outlined-basic"
+                           label="Address"
+                           name='address'
+                           variant="outlined"
+                           className='field'
+                           disabled={!editable}
+                           onChange={handleFormControl}
+                           value={userInfo.address}
+                />
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <Grid item container spacing={1} lg={8} md={8} sm={8} xs={8} className='accountSetting-third'>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <TextField id="outlined-basic"
+                               label="City"
+                               variant="outlined"
+                               name='city'
+                               className='field'
+                               disabled={!editable}
+                               onChange={handleFormControl}
+                               value={userInfo.city}
+                    />
+                </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <TextField id="outlined-basic"
+                               label="Zip"
+                               name='zip'
+                               variant="outlined"
+                               className='field'
+                               disabled={!editable}
+                               onChange={handleFormControl}
+                               value={userInfo.zip}
+                    />
+                </Grid>
+            </Grid>
+            <br/>
+            <Grid item container spacing={1} lg={8} md={8} sm={8} xs={8} className='accountSetting-third'>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <TextField id="outlined-basic"
+                               label="Country/Region"
+                               name='country'
+                               variant="outlined"
+                               className='field'
+                               disabled={!editable}
+                               onChange={handleFormControl}
+                               value={userInfo.country}
+                    />
+                </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <TextField id="outlined-basic"
+                               label="State"
+                               name='state'
+                               variant="outlined"
+                               className='field'
+                               disabled={!editable}
+                               onChange={handleFormControl}
+                               value={userInfo.state}
+                    />
+                </Grid>
+            </Grid>
+            <br/>
+            <br/>
+            <br/>
+            <Grid container>
+                <Grid item lg={5} md={6} sm={6} xs={6}>
+                    {
+                        editable ?
+                            <Fab
+                                variant="extended"
+                                size="medium"
+                                color="secondary"
+                                aria-label="Save"
+                                onClick={handleSubmit}
+                                style={{backgroundColor:'black',color:'white'}}
+                            >
+                                Save
+                                <ArrowForwardIcon />
+                            </Fab>
+                        :
+                            <Fab
+                                variant="extended"
+                                size="medium"
+                                color="secondary"
+                                aria-label="Signup"
+                                onClick={handleEditableOpen}
+                                style={{backgroundColor:'black',color:'white'}}
+                            >
+                                Edit
+                                <ArrowForwardIcon />
+                            </Fab>
+                    }
+
+                </Grid>
+            </Grid>
+
 
 
 

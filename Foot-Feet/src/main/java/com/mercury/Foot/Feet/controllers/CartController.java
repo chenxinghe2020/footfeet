@@ -26,6 +26,11 @@ public class CartController {
 		cartService.save(cart);
 	}
 	
+	@PostMapping("/update")
+	public void update(@RequestBody Cart cart){
+		cartService.update(cart);
+	}
+	
 	
 	@GetMapping("/{id}")
 	public List<Cart> getByUserId(@PathVariable int id){

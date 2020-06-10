@@ -10,6 +10,7 @@ export const appConstant={
     accountOrderRoute:'/account/orders',
     orderDetail:'/account/orderDetail',
     cartRoute:'/cart',
+    tempCartRoute:'/tempCart',
     paymentRoute:'/payment',
     adminRoute:'/admin',
     dashboardRoute:'/admin/dashboard',
@@ -35,7 +36,9 @@ export const appConstant={
     GET_USER_ORDERS:'GET_USER_ORDERS',
     ADD_ORDER:'ADD_ORDER',
     GET_CART:'GET_CART',
+    UPDATE_CART:'UPDATE_CART',
     GET_TEMP_CART:'GET_TEMP_CART',
+    CHANGE_TEMP_ITEM:'CHANGE_TEMP_ITEM',
     ADD_TO_CART:'ADD_TO_CART',
     ADD_TO_TEMP_CART:'ADD_TO_TEMP_CART',
     DELETE_FROM_CART:'DELETE_FROM_CART',
@@ -44,6 +47,11 @@ export const appConstant={
     ADD_TO_FILTER:'ADD_TO_FILTER',
     GET_FILTER:'GET_FILTER',
     DELETE_ONE_FILTER:'DELETE_ONE_FILTER',
+    GET_REVIEWS:'GET_REVIEWS',
+    ADD_REVIEW:'ADD_REVIEW',
+    GET_REVIEW_BY_PRODUCT_ID:'GET_REVIEW_BY_PRODUCT_ID',
+    CHANGE_PASSWORD:'CHANGE_PASSWORD',
+    FORGOT_PASSWORD:'FORGOT_PASSWORD',
 
 
 

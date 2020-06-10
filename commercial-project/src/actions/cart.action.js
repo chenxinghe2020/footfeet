@@ -10,6 +10,15 @@ export const addToCart=(newOrderProduct)=>{
     }
 }
 
+export const updateCart=(newOrderProduct)=>{
+    const updateCartPromise=axios.post(`http://localhost:8080/carts/update`, newOrderProduct ,{withCredentials:true});
+    return {
+        type:appConstant.UPDATE_CART,
+        payload: updateCartPromise
+    }
+}
+
+
 export const deleteFromCart=(id)=>{
 
     const deletePromise=axios.put(`http://localhost:8080/carts/${id}` ,{withCredentials:true});

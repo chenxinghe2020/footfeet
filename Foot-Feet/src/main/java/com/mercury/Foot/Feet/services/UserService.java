@@ -33,6 +33,10 @@ public class UserService {
 		return userDao.findAll();
 	}
 	
+	public List<User> getAllByEmail(String email){
+		return userDao.findByEmail(email);
+	}
+	
 	public Response register(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		List<Profile> profiles = new ArrayList<Profile>();

@@ -32,7 +32,7 @@ const Products =(props)=> {
     },[loginState.products])
 
     const [filters,setFilters]=useState({
-        search:'',
+        search:props.match.params.search?props.match.params.search:' ',
         sport: {
             running:false,
             lifeStyle:false,
@@ -87,6 +87,9 @@ const Products =(props)=> {
         let newRelease=true;
         if(filterProducts.products){
             let newFilterProducts=loginState.products.filter((product)=>{
+                if(!filters.search||filters.search===' '){
+                    return product;
+                }
                 if(filters.search.toLowerCase()==='best seller'){
                     bestSeller=true;
                     return product;
@@ -94,9 +97,7 @@ const Products =(props)=> {
                     newRelease=true;
                     return product;
                 }
-                if(!filters.search||filters.search===' '){
-                    return product;
-                }
+
                 let searchArr=filters.search.split(' ');
                 let count=0;
                 for(let i=0;i<searchArr.length;i++){

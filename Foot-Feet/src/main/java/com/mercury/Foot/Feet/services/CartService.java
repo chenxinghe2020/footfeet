@@ -16,6 +16,20 @@ public class CartService {
 	private CartDao cartDao;
 	
 	public void save(Cart cart) {
+		List<Cart> carts=cartDao.findByUserId(cart.getUserId());
+		for(Cart item : carts) {
+			System.out.println(item.getProduct());
+			System.out.println(cart.getProduct());
+			if(item.getProduct().getId()==cart.getProduct().getId()){
+				item.setQty(item.getQty()+cart.getQty());
+				cartDao.save(item);
+				return;
+			}
+		}
+		cartDao.save(cart);
+	}
+	
+	public void update(Cart cart) {
 		cartDao.save(cart);
 	}
 	

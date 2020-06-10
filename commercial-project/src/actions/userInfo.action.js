@@ -17,8 +17,8 @@ export const addUserInfo=(newUserInfo,loginState)=>{
         state:newUserInfo.state                 ? newUserInfo.state             :'',
         user:loginState.user                    ? loginState.user               :null
     }
-    // console.log('***************************************************')
-    // console.log(userInfo);
+    console.log('***************************************************')
+    console.log(userInfo);
     const addUserInfoPromise=axios.put(`http://localhost:8080/user-details`, userInfo ,{withCredentials:true});
     // console.log("this is in add user info")
     // console.log(addUserInfoPromise)
@@ -39,3 +39,4 @@ export const getUserInfo=(id)=>{
     }
 
 }
+

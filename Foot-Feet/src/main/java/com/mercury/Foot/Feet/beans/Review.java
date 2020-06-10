@@ -14,10 +14,12 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column
-	private String userId;
+	private int userId;
+	@Column
+	private int productId;
 	@Column
 	private String title;
-	@Column
+	@Column(length=3000)
 	private String description;
 	@Column
 	private int rate;
@@ -25,18 +27,19 @@ public class Review {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Review(int id, String userId, String title, String description, int rate) {
+	public Review(int id, int userId, int productId, String title, String description, int rate) {
 		super();
 		this.id = id;
 		this.userId = userId;
+		this.productId = productId;
 		this.title = title;
 		this.description = description;
 		this.rate = rate;
 	}
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", userId=" + userId + ", title=" + title + ", description=" + description
-				+ ", rate=" + rate + "]";
+		return "Review [id=" + id + ", userId=" + userId + ", productId=" + productId + ", title=" + title
+				+ ", description=" + description + ", rate=" + rate + "]";
 	}
 	public int getId() {
 		return id;
@@ -44,11 +47,17 @@ public class Review {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 	public String getTitle() {
 		return title;
@@ -68,6 +77,9 @@ public class Review {
 	public void setRate(int rate) {
 		this.rate = rate;
 	}
+	
+	
+	
 	
 	
 	

@@ -1,4 +1,3 @@
-
 import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -15,10 +14,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {appConstant} from "../appConstants/appConstants";
 import TextField from "@material-ui/core/TextField";
 import {register} from "../actions/user.action";
+import EmailIcon from '@material-ui/icons/Email';
 
 const Register=(props)=>{
     const dispatch = useDispatch();
     const [user,setUser]=React.useState({
+        email:'',
         username:'',
         password:'',
         confirmPassword:'',
@@ -83,6 +84,25 @@ const Register=(props)=>{
                                         startAdornment: (
                                             <InputAdornment position="start">
                                                 <UsernameIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+
+                                />
+                            </Grid>
+                            <Grid item lg={10} md={10} sm={10} xs={10} className='inputLine'>
+                                <TextField
+                                    className='textField'
+                                    name="email"
+                                    label="Email"
+                                    value={user.email}
+                                    onChange={handleFormControl}
+                                    key='email'
+                                    type='text'
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <EmailIcon />
                                             </InputAdornment>
                                         ),
                                     }}

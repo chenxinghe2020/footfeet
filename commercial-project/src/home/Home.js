@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Home.scss';
 import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Fab from "@material-ui/core/Fab";
+import {getProducts} from "../actions/products.action";
 const Home = () => {
 
+    const dispatch=useDispatch();
+    useEffect(()=>{
+        dispatch(getProducts())
+    },[])
     const reduxStore= useSelector(appState => {
         return {
             products:appState.products

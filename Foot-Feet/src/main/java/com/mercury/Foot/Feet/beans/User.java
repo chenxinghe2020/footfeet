@@ -30,6 +30,8 @@ public class User implements UserDetails {
 	@Column
 	private String username;
 	@Column
+	private String email;
+	@Column
 	private String password;
 	
 	
@@ -52,19 +54,7 @@ public class User implements UserDetails {
 	}
 
 
-	public User(int id, String username, String password, List<Profile> profiles) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.profiles = profiles;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", profiles=" + profiles + "]";
-	}
+	
 
 
 	public int getId() {
@@ -72,9 +62,15 @@ public class User implements UserDetails {
 	}
 
 
+
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
 
 
 	public String getUsername() {
@@ -82,9 +78,31 @@ public class User implements UserDetails {
 	}
 
 
+
+
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
 
 
 	public String getPassword() {
@@ -92,9 +110,15 @@ public class User implements UserDetails {
 	}
 
 
+
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+
 
 
 	public List<Profile> getProfiles() {
@@ -102,9 +126,38 @@ public class User implements UserDetails {
 	}
 
 
+
+
+
 	public void setProfiles(List<Profile> profiles) {
 		this.profiles = profiles;
 	}
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", profiles=" + profiles + "]";
+	}
+
+
+
+
+
+	public User(int id, String username, String email, String password, List<Profile> profiles) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.profiles = profiles;
+	}
+
+
+
 
 
 	@Override

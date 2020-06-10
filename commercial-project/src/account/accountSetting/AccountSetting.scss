@@ -4,17 +4,31 @@
   .accountSetting-title{
 
   }
-  .info-name{
-    display: flex;
-    justify-content: space-between;
-    width: 840px;
-    .accountSetting-name-field{
-      width: 390px;
+  .accountSetting-first{
+    font-family: cursive;
+    margin-bottom: 20px;
+  }
+
+  .accountSetting-second{
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+    .btn{
+      display: flex;
+      justify-content: flex-end;
+      .btn-btn{
+        background-color: black;
+        color: white;
+        height: 50px;
+      }
     }
   }
 
-  .accountSetting-text-field{
-    width: 100%;
-    min-width: 800px;
+  .accountSetting-third{
+    margin-bottom: 20px;
+
   }
+}
+
+.field{
+  width: 100%;
 }
