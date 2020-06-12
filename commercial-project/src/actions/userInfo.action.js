@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {appConstant} from "../appConstants/appConstants";
+import {API} from "../appConstants/environment";
 
 
 export const addUserInfo=(newUserInfo,loginState)=>{
@@ -19,7 +20,7 @@ export const addUserInfo=(newUserInfo,loginState)=>{
     }
     console.log('***************************************************')
     console.log(userInfo);
-    const addUserInfoPromise=axios.put(`http://localhost:8080/user-details`, userInfo ,{withCredentials:true});
+    const addUserInfoPromise=axios.put(`${API.ROOT}/user-details`, userInfo ,{withCredentials:true});
     // console.log("this is in add user info")
     // console.log(addUserInfoPromise)
     return {
@@ -30,7 +31,7 @@ export const addUserInfo=(newUserInfo,loginState)=>{
 
 export const getUserInfo=(id)=>{
 
-    const getUserInfoPromise=axios.get(`http://localhost:8080/user-details/${id}`,{withCredentials:true});
+    const getUserInfoPromise=axios.get(`${API.ROOT}/user-details/${id}`,{withCredentials:true});
     // console.log("this is in user info action")
     // console.log(getUserInfoPromise);
     return {

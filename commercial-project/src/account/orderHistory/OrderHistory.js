@@ -38,6 +38,10 @@ export const OrderHistory=(props)=>{
         dispatch(getUserOrders(loginState.user.id));
     },[])
 
+    // useEffect(()=>{
+    //     loginState.orders&&loginState.orders.reverse();
+    // },[loginState.orders])
+
     useEffect(()=>{
         console.log(loginState)
     },[loginState.orders])
@@ -47,7 +51,7 @@ export const OrderHistory=(props)=>{
 
     return (
         <Grid container className='orderHistory'>
-            {loginState.orders&&loginState.orders.map(order=>(
+            {loginState.orders&&loginState.orders.reverse().map(order=>(
                 <Grid item container lg={11} md={11} sm={11} xs={11} className='order-container' key={order.id}>
                     <Grid item lg={11} md={11} sm={11} xs={11} className='order-header'>
                         ORDER: {order.id*9973}

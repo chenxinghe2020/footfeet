@@ -12,10 +12,14 @@ import ViewStreamIcon from "@material-ui/icons/ViewStream";
 import './Admin.scss'
 import AddProduct from "./addProduct/AddProduct";
 import Dashboard from "./dashboard/Dashboard";
-import Product from "../products/productDetail/Product";
 import EditProduct from "./editProduct/EditProduct";
 import Orders from "./orders/Orders";
 import AdminOrderDetail from "./orders/adminOrderDetail/AdminOrderDetail";
+import AddAdmin from "./addAdmin/AddAdmin";
+import SoldPerMonth from "./chart/SoldPerMonth";
+import EarningPerMonth from "./chart/EarningPerMonth";
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import PercentageChart from "./chart/PercentageChart";
 
 const Admin=()=>{
 
@@ -52,15 +56,43 @@ const Admin=()=>{
                         </ListItemIcon>
                         <ListItemText primary="Orders" />
                     </ListItem>
+                    <ListItem button component={Link} to={appConstant.addAdminRoute}>
+                        <ListItemIcon>
+                            <ViewStreamIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Add Admin" />
+                    </ListItem>
+                    <ListItem button component={Link} to={appConstant.soldPerMonthRoute}>
+                        <ListItemIcon>
+                            <EqualizerIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Sales Per Month" />
+                    </ListItem>
+                    <ListItem button component={Link} to={appConstant.earningPerMonth}>
+                        <ListItemIcon>
+                            <EqualizerIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Earning Per Month" />
+                    </ListItem>
+                    <ListItem button component={Link} to={appConstant.pieChart}>
+                        <ListItemIcon>
+                            <EqualizerIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Earning Percentage" />
+                    </ListItem>
                 </List>
             </Grid>
-            <Grid item lg={8} md={8} sm={8} xs={8} className='infoBlock'>
+            <Grid item lg={9} md={9} sm={9} xs={9} className='infoBlock'>
                 <Switch>
                     <Route path={appConstants.addProductRoute} component={AddProduct}/>
                     <Route path={appConstants.dashboardRoute} component={Dashboard}/>
                     <Route path={`${appConstants.editProductRoute}/:id`} component={EditProduct}/>
                     <Route path={`${appConstants.adminOrderDetailRoute}/:id`} component={AdminOrderDetail}/>
                     <Route path={appConstants.ordersRoute} component={Orders}/>
+                    <Route path={appConstants.addAdminRoute} component={AddAdmin}/>
+                    <Route path={appConstants.soldPerMonthRoute} component={SoldPerMonth}/>
+                    <Route path={appConstants.earningPerMonth} component={EarningPerMonth}/>
+                    <Route path={appConstants.pieChart} component={PercentageChart}/>
                     <Route path="*">
                         <Redirect to={appConstants.dashboardRoute}/>
                     </Route>

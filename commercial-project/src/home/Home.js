@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Fab from "@material-ui/core/Fab";
 import {getProducts} from "../actions/products.action";
+import {appConstant} from "../appConstants/appConstants";
 const Home = () => {
 
     const dispatch=useDispatch();
@@ -18,6 +19,9 @@ const Home = () => {
         };
     });
 
+    const handleDetail=()=>{
+        console.log("click....................................")
+    }
 
 
 
@@ -30,6 +34,9 @@ const Home = () => {
                         size="large"
                         aria-label="AddProduct"
                         className='first-btn'
+                        onClick={handleDetail}
+                        component={Link}
+                        to={`${appConstant.productsRoute}/Jordan Retro`}
                     >
                         Shop Now <ArrowForwardIosIcon style={{margin:10}}/>
                     </Fab>
@@ -40,6 +47,9 @@ const Home = () => {
                         size="large"
                         aria-label="AddProduct"
                         className='first-btn'
+                        // component={Link} to={appConstant.paymentRoute}
+                        component={Link}
+                        to={`${appConstant.productsRoute}/Nike Blazer`}
                     >
                         Shop Now <ArrowForwardIosIcon style={{margin:10}}/>
                     </Fab>
@@ -60,6 +70,8 @@ const Home = () => {
                         size="large"
                         aria-label="AddProduct"
                         className='second-btn'
+                        component={Link}
+                        to={`${appConstant.productsRoute}/summer`}
                     >
                         Air Max <ArrowForwardIosIcon style={{margin:10}}/>
                     </Fab>
@@ -82,7 +94,6 @@ const Home = () => {
                 <Grid item lg={3} md={4} sm={4} xs={4} className='third-third' >
 
                 </Grid>
-
             </Grid>
             <br/>
             <br/>
@@ -109,6 +120,8 @@ const Home = () => {
                         size="large"
                         aria-label="AddProduct"
                         className='fourth-btn'
+                        component={Link}
+                        to={`${appConstant.productsRoute}/jordan force`}
                     >
                         Air Max <ArrowForwardIosIcon style={{margin:10}}/>
                     </Fab>

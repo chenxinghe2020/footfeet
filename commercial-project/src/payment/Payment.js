@@ -19,6 +19,7 @@ import {deleteFromCart} from "../actions/cart.action";
 import { useHistory } from "react-router-dom";
 import {Link} from "react-router-dom";
 import {appConstant} from "../appConstants/appConstants";
+import {saveSummary} from "../actions/summary.action";
 
 
 const Payment=(props)=>{
@@ -150,6 +151,7 @@ const Payment=(props)=>{
         ids.forEach(id=>{
             dispatch(deleteFromCart(id));
         })
+        dispatch(saveSummary(newOrder));
         history.push(`${appConstant.summaryRoute}`)
     }
 

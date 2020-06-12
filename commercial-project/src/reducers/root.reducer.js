@@ -9,6 +9,7 @@ import {ordersReducer} from "./orders.reducer";
 import {filterReducer} from "./filter.reducer";
 import {tempCartReducer} from "./tempCart.reducer";
 import {reviewsReducer} from "./reviews.reducer";
+import {summaryReducer} from "./summary.reducer";
 
 export const rootReducers=combineReducers({
     products:productsReducer,
@@ -21,5 +22,6 @@ export const rootReducers=combineReducers({
     orders:ordersReducer,
     filter:filterReducer,
     reviews:reviewsReducer,
+    summary:summaryReducer,
 
 })

@@ -48,6 +48,18 @@ public class UserService {
 		return new Response(true);
 	}
 	
+	
+	public Response registerAdmin(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		List<Profile> profiles = new ArrayList<Profile>();
+		profiles.add(new Profile(1));
+		user.setProfiles(profiles);
+		userDao.save(user);
+		UserInfo newUserInfo=new UserInfo(" "," "," "," "," "," "," "," "," ",user);
+		userInfoDao.save(newUserInfo);
+		return new Response(true);
+	}
+	
 	public Response changePassword(User user, Authentication authentication) {
 		if(user.getUsername().equals(authentication.getName()) || isAdmin(authentication.getAuthorities())) {
 			User u = userDao.findByUsername(user.getUsername());

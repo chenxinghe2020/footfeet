@@ -1,10 +1,11 @@
 import axios from "axios";
 import {appConstant} from "../appConstants/appConstants";
+import {API} from "../appConstants/environment";
 
 
 export const getUserOrders=(id)=>{
 
-    const getUserOrdersPromise=axios.get(`http://localhost:8080/orders/${id}`,{withCredentials:true});
+    const getUserOrdersPromise=axios.get(`${API.ROOT}/orders/${id}`,{withCredentials:true});
     return {
         type:appConstant.GET_USER_ORDERS,
         payload:getUserOrdersPromise,
@@ -12,7 +13,7 @@ export const getUserOrders=(id)=>{
 }
 
 export const getOrders=()=>{
-    const getOrdersPromise=axios.get(`http://localhost:8080/orders`,{withCredentials:true});
+    const getOrdersPromise=axios.get(`${API.ROOT}/orders`,{withCredentials:true});
     return {
         type:appConstant.GET_ORDERS,
         payload:getOrdersPromise,
@@ -22,7 +23,7 @@ export const getOrders=()=>{
 export const addOrder=(newOrder)=>{
     console.log('this is in order action to de add new order')
     console.log(newOrder);
-    const addOrdersPromise=axios.post(`http://localhost:8080/orders`,newOrder,{withCredentials:true});
+    const addOrdersPromise=axios.post(`${API.ROOT}/orders`,newOrder,{withCredentials:true});
     return {
         type:appConstant.ADD_ORDER,
         payload:addOrdersPromise,

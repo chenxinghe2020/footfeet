@@ -81,6 +81,8 @@ const Orders=()=>{
                     <MaterialTable
                         icons={tableIcons}
                         options={{
+                            pageSize: 10,
+                            pageSizeOptions: [10, 20, 30 ,50],
                             search: true,
                             actionsColumnIndex: -1,
                             // filtering: true

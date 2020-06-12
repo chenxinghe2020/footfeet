@@ -19,7 +19,10 @@ export const appConstant={
     ordersRoute:'/admin/orders',
     adminOrderDetailRoute:'/admin/orderDetail/',
     summaryRoute:'/summary',
-
+    addAdminRoute:'/admin/addAdmin',
+    soldPerMonthRoute:'/admin/soldPerMonth',
+    earningPerMonth:'/admin/earning',
+    pieChart:'/admin/pie',
 
 
     //action
@@ -52,6 +55,8 @@ export const appConstant={
     GET_REVIEW_BY_PRODUCT_ID:'GET_REVIEW_BY_PRODUCT_ID',
     CHANGE_PASSWORD:'CHANGE_PASSWORD',
     FORGOT_PASSWORD:'FORGOT_PASSWORD',
+    ADD_ADMIN:'ADD_ADMIN',
+    SAVE_SUMMARY:'SAVE_SUMMARY',
 
 
 

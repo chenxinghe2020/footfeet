@@ -37,6 +37,12 @@ public class UserController {
 		return userService.register(user);
 	}
 	
+	@PreAuthorize("permitAll()")
+	@PostMapping("/admin")
+	public Response addAdmin(@RequestBody User user) {
+		return userService.registerAdmin(user);
+	}
+	
 	@PutMapping
 	public Response changeUser(@RequestBody User user, Authentication authentication) {
 		return userService.changePassword(user, authentication);

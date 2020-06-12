@@ -85,6 +85,7 @@ const Products =(props)=> {
         // console.log(loginState.products);
         let bestSeller=false;
         let newRelease=true;
+        let colors=[];
         if(filterProducts.products){
             let newFilterProducts=loginState.products.filter((product)=>{
                 if(!filters.search||filters.search===' '){
@@ -112,6 +113,12 @@ const Products =(props)=> {
                 //     return product;
                 // }
             })
+                .filter(item=>{
+                    if(colors.indexOf(item.name+item.color)===-1){
+                        colors.push(item.name+item.color);
+                        return item;
+                    }
+                })
                 .filter(product=>{
                     let count=0;
                     for(const key in filters.sport){

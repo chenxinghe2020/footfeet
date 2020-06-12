@@ -8,6 +8,8 @@ export const userReducer = (state = null, action) => {
             return action.payload.success ? action.payload.user : null;
         case appConstant.REGISTER:
             return action.payload.success ? action.payload: null;
+        case appConstant.ADD_ADMIN:
+            return action.payload.success ? action.payload: null;
         case appConstant.CHANGE_PASSWORD:
             return state;
         case appConstant.FORGOT_PASSWORD:

@@ -17,6 +17,8 @@ import {addReview, getReviewsByProductId} from "../../actions/reviews.action";
 import TextField from "@material-ui/core/TextField";
 import Fab from "@material-ui/core/Fab";
 import Rating from "@material-ui/lab/Rating";
+import Alert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 class Product extends React.Component{
     state={
         currentProduct:this.props.product,
@@ -38,11 +40,20 @@ class Product extends React.Component{
             rate:3,
             title:'',
             description:'',
-        }
+        },
+        open:false,
+        sizes:[],
     }
-    colors=[];
-    sizes=[];
 
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({
+            ...this.state,
+            open:false,
+        })
+    };
 
     constructor(props) {
         super(props);
@@ -56,17 +67,22 @@ class Product extends React.Component{
         this.props.product&&this.props.getReviewsByProductId(this.props.product.id);
         this.props.user&&this.props.getCart(this.props.user.id);
 
-        let showProducts=this.props.products&&this.props.products.filter(p=>{
+        let showProducts1=this.props.products&&this.props.products.filter(p=>{
             return p.name===this.props.product.name;
         })
-
-        showProducts&&showProducts.forEach(p=>{
-            if(this.colors.indexOf(p.color)===-1){
-                this.colors.push(p.color);
+        let temp=[];
+        let showProducts=[];
+        showProducts1.forEach((item,index)=> {
+            if(temp.indexOf(item.color)===-1){
+                temp.push(item.color);
+                showProducts.push(item);
             }
-            if(this.sizes.indexOf(p.size)===-1){
-                this.sizes.push(p.size);
-                this.sizes.sort();
+        });
+
+        showProducts1&&showProducts1.forEach(p=>{
+            if(this.state.sizes.indexOf(p.size)===-1&&p.color===this.props.product.color){
+                this.state.sizes.push(p.size);
+                this.state.sizes.sort();
             }
         })
 
@@ -74,7 +90,7 @@ class Product extends React.Component{
             ...this.state,
             currentProduct:this.props.product,
             showProducts:showProducts,
-            size:this.sizes[0],
+            size:this.state.sizes[0],
             currentReview:{
                 ...this.state.currentReview,
                 productId:this.props.product.id,
@@ -96,13 +112,25 @@ class Product extends React.Component{
         let product=this.state.showProducts.find(product=>{
             return product.id===+id;
         })
+
+        let sizes=[];
+
+        this.props.products.forEach(p=>{
+            if(sizes.indexOf(p.size)===-1&&p.color===product.color){
+                sizes.push(p.size);
+                sizes.sort();
+            }
+        })
+
         this.setState({
             ...this.state,
             currentProduct:product,
             currentReview:{
                 ...this.state.currentReview,
                 productId:product.id,
-            }
+            },
+            sizes:sizes,
+            size:sizes[0],
         })
 
         this.props.getReviewsByProductId(product.id);
@@ -139,13 +167,20 @@ class Product extends React.Component{
 
 
     handleAddToCart=()=>{
+        let product=this.props.products.find(item=>{
+            if( item.name===this.state.currentProduct.name&&
+                item.color===this.state.currentProduct.color&&
+                item.size===this.state.size){
+                return item;
+            }
+        })
         if(this.props.user){
             const cartItem={
                 id:'',
                 userId:this.props.user.id,
                 qty:1,
                 status:'unpaid',
-                product:this.state.currentProduct,
+                product:product,
                 order:'',
             }
             this.props.addToCart(cartItem);
@@ -156,11 +191,16 @@ class Product extends React.Component{
                 userId:' ',
                 qty:1,
                 status:'unpaid',
-                product:this.state.currentProduct,
+                product:product,
                 order:'',
             }
             this.props.addToTempCart(cartItem);
         }
+
+        this.setState({
+            ...this.state,
+            open:true,
+        })
 
     }
 
@@ -237,7 +277,7 @@ class Product extends React.Component{
                                     onChange={this.sizeChangeHandler}
                         >
                             {
-                                this.sizes.map(size=>(
+                                this.state.sizes.map(size=>(
                                     <FormControlLabel key={size} value={size} control={<Radio color="primary" />} label={size} />
                                 ))
                             }
@@ -247,16 +287,34 @@ class Product extends React.Component{
                     <br/>
                     <br/>
                     <Grid item lg={12} md={12} sm={12} xs={12} className='addtocart'>
-                        <Button
-                            variant="contained"
-                            style={{color:"white",
-                                backgroundColor:'black'}}
-                            size="large"
-                            endIcon={<ArrowRightAltIcon />}
-                            onClick={this.handleAddToCart}
-                        >
-                            Add To Cart
-                        </Button>
+                        {
+                            this.props.user.profiles[0].type==='ROLE_ADMIN'?
+
+                                <Button
+                                    variant="contained"
+                                    style={{color:"white",
+                                        backgroundColor:'black'}}
+                                    size="large"
+                                    style={{backgroundColor:'#dddddd'}}
+                                    disabled={true}
+                                    endIcon={<ArrowRightAltIcon />}
+                                    onClick={this.handleAddToCart}
+                                >
+                                    Add To Cart
+                                </Button>
+                                :
+                                <Button
+                                    variant="contained"
+                                    style={{color:"white",
+                                        backgroundColor:'black'}}
+                                    size="large"
+                                    endIcon={<ArrowRightAltIcon />}
+                                    onClick={this.handleAddToCart}
+                                >
+                                    Add To Cart
+                                </Button>
+                        }
+
                     </Grid>
                     <br/>
                     <br/>
@@ -371,7 +429,11 @@ class Product extends React.Component{
                 </Grid>
 
 
-
+                <Snackbar open={this.state.open} autoHideDuration={3000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} onClose={this.handleClose}>
+                    <Alert onClose={this.handleClose} severity="success">
+                        Successfully Add {this.props.product.name} To Cart.
+                    </Alert>
+                </Snackbar>
             </Grid>
                 :
                 <h3>No data found</h3>

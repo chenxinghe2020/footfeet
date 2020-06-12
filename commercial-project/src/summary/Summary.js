@@ -27,11 +27,15 @@ const Summary=(props)=>{
             user: appState.user,
             orders:appState.orders,
             shipping:appState.shipping,
+            summary:appState.summary,
         };
     });
 
     useEffect(()=>{
-        dispatch(getUserOrders(loginState.user.id));
+        setTimeout(()=>{
+            dispatch(getUserOrders(loginState.user.id));
+        },150)
+
     },[])
 
     const [order,setOrder]=useState({
@@ -39,6 +43,7 @@ const Summary=(props)=>{
     })
 
     useEffect(()=>{
+
         loginState.orders&&setOrder({
             order:loginState.orders[loginState.orders.length-1]
         })
@@ -48,21 +53,21 @@ const Summary=(props)=>{
 
 
 
-    return (order.order?
+    return (loginState.summary?
             <Grid container className='summary-detail' style={{top:120}}>
                 <Grid item lg={11} md={11} sm={11} xs={11} className='orderDetail-header'>
-                    ORDER: {order.order.id*9973}
+                    ORDER: {loginState.summary.id*9973}
                 </Grid>
 
                 <Grid container item lg={11} md={11} sm={11} xs={11} className='orderDetail-subheader' >
                     <Grid item lg={4} md={4} sm={4} xs={4}>
-                        Order on:{formatDate(order.order.date)}
+                        Order on:{formatDate(loginState.summary.date)}
                     </Grid>
                     <Grid item lg={5} md={5} sm={5} xs={5}>
-                        Status:{order.order.status}
+                        Status:{loginState.summary.status}
                     </Grid>
                     <Grid item lg={2} md={2} sm={2} xs={2}>
-                        ${order.order.total}
+                        ${loginState.summary.total}
 
                     </Grid>
                 </Grid>
@@ -70,7 +75,7 @@ const Summary=(props)=>{
                 <br/>
                 <br/>
                 {
-                    order.order.purchases.map(orderProduct=>{
+                    loginState.summary.purchases.map(orderProduct=>{
                         return(
                             <Grid container item lg={11} md={11} sm={11} xs={11} className='orderDetail-product' key={orderProduct.id}>
                                 <br/>
@@ -101,6 +106,9 @@ const Summary=(props)=>{
                         )
                     })
                 }
+
+
+
                 <Divider/>
                 <Grid container item lg={11} md={11} sm={11} xs={11} className='product-summary'>
                     <Grid item container lg={12} md={12} sm={12} xs={12} className='session-wrapper'>
@@ -108,10 +116,10 @@ const Summary=(props)=>{
                             Shipping Address:
                         </Grid>
                         <Grid item lg={10} md={10} sm={10} xs={10} className='info'>
-                            {order.order.address.address}
+                            {loginState.summary.address.address}
                         </Grid>
                         <Grid item lg={10} md={10} sm={10} xs={10} className='info' >
-                            {order.order.address.city} {order.order.address.state} {order.order.address.zip}
+                            {loginState.summary.address.city} {loginState.summary.address.state} {loginState.summary.address.zip}
                         </Grid>
                         <br/>
                         <br/>
@@ -126,7 +134,7 @@ const Summary=(props)=>{
                                 Subtotal:
                             </Grid>
                             <Grid item lg={2} md={2} sm={2} xs={2} >
-                                ${order.order.subtotal.toFixed(2)}
+                                ${loginState.summary.subtotal.toFixed(2)}
                             </Grid>
                         </Grid>
                         <Grid item lg={11} md={11} sm={11} xs={11} className='info'>
@@ -134,7 +142,7 @@ const Summary=(props)=>{
                                 Shipping:
                             </Grid>
                             <Grid item lg={2} md={2} sm={2} xs={2} >
-                                ${order.order.shipping.toFixed(2)}
+                                ${loginState.summary.shipping.toFixed(2)}
                             </Grid>
                         </Grid>
                         <Grid item lg={11} md={11} sm={11} xs={11} className='info'>
@@ -142,7 +150,7 @@ const Summary=(props)=>{
                                 Tax:
                             </Grid>
                             <Grid item lg={2} md={2} sm={2} xs={2} >
-                                ${order.order.tax.toFixed(2)}
+                                ${loginState.summary.tax.toFixed(2)}
                             </Grid>
 
                         </Grid>
@@ -153,7 +161,7 @@ const Summary=(props)=>{
                             Total:
                         </Grid>
                         <Grid item lg={3} md={3} sm={3} xs={3}>
-                            ${order.order.total.toFixed(2)}
+                            ${loginState.summary.total.toFixed(2)}
                         </Grid>
                     </Grid>
                     <br/>

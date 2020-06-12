@@ -1,67 +1,54 @@
-import React, {useEffect, useState} from "react";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
-import Paper from "@material-ui/core/Paper";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
+import React, {forwardRef, useEffect, useState} from "react";
 import './Dashboard.scss'
-import TablePagination from "@material-ui/core/TablePagination";
 import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../../actions/products.action";
 import {appConstant} from "../../appConstants/appConstants";
-import {Link} from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
+import {Link, useHistory} from "react-router-dom";
+import AddBox from "@material-ui/icons/AddBox";
+import Check from "@material-ui/icons/Check";
+import Clear from "@material-ui/icons/Clear";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import Edit from "@material-ui/icons/Edit";
+import SaveAlt from "@material-ui/icons/SaveAlt";
+import FilterList from "@material-ui/icons/FilterList";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import Search from "@material-ui/icons/Search";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Remove from "@material-ui/icons/Remove";
+import ViewColumn from "@material-ui/icons/ViewColumn";
+import MaterialTable from "material-table";
 
-const columns = [
-    { id: 'id', label: 'ID',align: 'left', minWidth: 10 },
-    { id: 'name', label: 'Name',align: 'left', minWidth: 170 },
-    { id: 'price', label: 'Price',align: 'right', minWidth: 100 },//\u00a0
-    { id: 'color', label: 'Color',align: 'right', minWidth: 100 },
-    { id: 'size', label: 'Size',align: 'right', minWidth: 100 },
-    { id: 'brand', label: 'Brand',align: 'right', minWidth: 100 },
-    { id: 'stock', label: 'Stock',align: 'right', minWidth: 100 },
-    // {
-    //     id: 'population',
-    //     label: 'Population',
-    //     minWidth: 170,
-    //     align: 'right',
-    //     format: (value) => value.toLocaleString('en-US'),
-    // }
-];
-
-const useStyles = makeStyles({
-    root: {
-        width: '100%',
-    },
-    container: {
-        maxHeight: 3000,
-    },
-});
+const tableIcons = {
+    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+    DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+    ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+};
 
 
 const Dashboard=(props)=>{
-
+    const history=useHistory();
     const dispatch = useDispatch();
 
     React.useEffect(()=>{
-        !loginState.products&&dispatch(getProducts());
+        dispatch(getProducts());
     },[])
-
-    const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(15);
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
 
     const loginState = useSelector(appState => {
         return {
@@ -69,103 +56,43 @@ const Dashboard=(props)=>{
         };
     });
 
-    const [search,setSearch]=useState("")
-    const handleSearch=(event)=>{
-        setSearch(event.target.value);
-    }
-    const [products,setProducts]=useState({
-        items:loginState.products
-    })
-    useEffect(()=>{
-        setProducts({
-            items:loginState.products
-        });
-    },[loginState.products])
-
-    useEffect(()=>{
-        let newProducts=products.items&&loginState.products.filter(p=>{
-             if(p.name.toLocaleLowerCase().indexOf(search)>-1){
-                 return p;
-             }
-        })
-        setProducts({
-            items:newProducts
-        });
-    },[search])
-
-
     return (
-        <div className='dashboard'>
-            <Grid container className='search'>
-                <Grid item lg={7} >
-                    <TextField id="outlined-basic"
-                               label="Search Product"
-                               name='image3'
-                               variant="outlined"
-                               className='input'
-                               onChange={handleSearch}
-                               value={search}
+        <div style={{ width: '100%' }}>
+            {
+                loginState.products?
+                    <MaterialTable
+                        icons={tableIcons}
+                        options={{
+                            pageSize: 10,
+                            pageSizeOptions: [10, 20, 30 ,50],
+                            search: true,
+                            // filtering: true,
+                        }}
+                        columns={[
+                            { title: 'Id', field: 'id' },
+                            { title: 'Name', field: 'name' },
+                            { title: 'Brand', field: 'brand' },
+                            { title: 'Color', field: 'color' },
+                            { title: 'Size', field: 'size' },
+                            { title: 'Release Date', field: 'releaseDate',type:'datetime' },
+                            { title: 'Stock', field: 'stock' },
+                            { title: 'Price', field: 'price',type:'currency'},
+                        ]}
+                        actions={[
+                            {
+                                icon: tableIcons.Edit,
+                                tooltip: 'edit Product',
+                                onClick: (event, rowData) => history.push(`${appConstant.editProductRoute}/${rowData.id}`)
+                            }
+                        ]}
+                        data={loginState.products}
+                        title="Product Dashboard"
                     />
-                </Grid>
-            </Grid>
-            <br/>
-            <br/>
-            <br/>
-            <Paper className={classes.root}>
-                <TableContainer className={classes.container}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {products.items&&products.items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row,index) => {
-                                return (
-                                    //
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (column.id==='name'?
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        <Link to={`${appConstant.editProductRoute}/${row.id}`}>
-                                                            {value}
-                                                        </Link>
-                                                    </TableCell>
-                                                    :
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        {value}
-                                                    </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                    // </Link>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[15, 25, 100]}
-                    component="div"
-                    count={loginState.products?loginState.products.length:0}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-            </Paper>
+                    :
+                    <h3>No data</h3>
+            }
         </div>
-
-    );
+    )
 }
 
 export default Dashboard;

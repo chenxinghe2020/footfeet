@@ -1,7 +1,9 @@
 import {appConstant} from "../appConstants/appConstants";
 import axios from "axios";
+import {API} from "../appConstants/environment";
 export const logout = () => {
-    const logoutPromise = fetch('http://localhost:8080/logout', {credentials: 'include'})
+    // const logoutPromise = fetch('http://localhost:8080/logout', {credentials: 'include'})
+    const logoutPromise = fetch(`${API.ROOT}/logout`, {credentials: 'include'})
         .then(res => res.json())
         .catch();
     return {
@@ -17,7 +19,7 @@ export const login = (user, success, failure) => {
     userFormData.append('password', user.password);
     // ES6 fetch API, async, await
     const loginPromise = fetch(
-        'http://localhost:8080/login',
+        `${API.ROOT}/login`,
         {
             method: 'POST',
             body: userFormData,
